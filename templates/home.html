@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href={{url_for('static', filename='style.css') }}>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/256/12145/12145256.png" />
+    <title>Система студентов - Home</title>
+</head>
+<body>
+<div class="title-container">
+    <div class="header">
+        <h1>Система студентов</h1>
+    </div>
+    <div class="button-container">
+        <a href="/registration" class="button button-header">Зарегистрироваться</a>
+        <a href="/authentication" class="button button-header">Войти</a>
+    </div>
+
+</div>
+<div class="container">
+    <div class="welcome">
+
+        <h2>Добро пожаловать в Систему студентов</h2>
+        <p>Управляйте своим учебным процессом легко и эффективно!</p>
+
+            <p>Наша цель - облегчить учебный процесс, предоставив удобные инструменты и ресурсы для управления учебными данными, обмена информацией и совместной работы.</p>
+            <p>Для начала пользования нашей платформой, зарегистрируйтесь и войдите в систему. После входа вы получите доступ к всем нашим возможностям.</p>
+
+        <div class="welcome-image">
+            <img src={{ url_for('static', filename='home_image.jpg')}} alt="Home Image">
+        </div>
+
+<!--        <p>Войти как преподаватель</p>-->
+<!--            <a href="/authentication"  class="button button-header">Войти</a>-->
+
+    </div>
+
+
+
+
+</div>
+
+</body>
+</html>

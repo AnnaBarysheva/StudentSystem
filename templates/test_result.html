@@ -1,0 +1,83 @@
+<!-- test_result.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href={{url_for('static', filename='style.css') }}>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/256/12145/12145256.png" />
+    <title>Test Result</title>
+</head>
+<body>
+
+<div class="title-container">
+    <div class="header">
+        <h1>Система студентов</h1>
+        <div class="button-container">
+            <a href="/main" class="button button-header">Вернуться на главную</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="result-container">
+    <h2>Результаты теста по теме: {{ theme }}</h2>
+
+    <form class="custom-form">
+        <div class="right-answer-container">
+             <p>Правильных ответов: ({{ matching_answers_with_ids|length }})</p>
+<ul>
+    {% for answer, (question_id, weight) in matching_answers_with_ids %}
+        {% if question_id in question_ids %}
+            <li>
+                <strong>Вопрос:</strong> {{ questions[question_ids.index(question_id)] }}<br>
+                <strong>Правильный ответ:</strong> {{ answer }}<br>
+
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+        </div>
+
+
+
+<div class="separator-line"></div>
+
+        <div class="wrong-answer-container">
+            <p>Неправильных ответов: ({{ wrong_answer_values|length }})</p>
+            <ul>
+
+                {% for question_id, question_text, correct_answer, wrong_answer in combined_data %}
+                    <li>
+                        <strong>Вопрос:</strong> {{ question_text }}<br>
+
+                        <strong>Неправильный ответ:</strong> {{ wrong_answer }}<br>
+                        <strong>Правильный ответ:</strong> {{ correct_answer }}
+
+                    </li>
+                {% endfor %}
+
+
+
+
+            </ul>
+        </div>
+
+        <div class="separator-line"></div>
+
+        <div class="result-mark-container">
+             <h2>Общий вес правильных ответов: {{ total_weight }}</h2>
+            <h2>Итоговая оценка: {{ mark }}</h2>
+
+        </div>
+
+    </form>
+</div>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/256/12145/12145256.png" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+    <title>Plot Results</title>
+</head>
+    <style>
+        /* Стили для графиков */
+        .graph-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .graph {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+        }
+
+        .graph img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+<body>
+<div class="title-container">
+    <div class="header">
+        <h1>Система студентов</h1>
+        <div class="button-container">
+            <a href="/admin" class="button button-header">Вернуться на главную</a>
+        </div>
+    </div>
+</div>
+<div class="graph-container">
+    <h2>График средних оценок по темам</h2>
+    <div class="graph">
+        <img src="data:image/png;base64,{{ image_base64 }}" alt="График средних оценок по темам">
+    </div>
+</div>
+
+<div class="graph-container">
+    <h2>График количества тестов по темам</h2>
+    <div class="graph">
+        <img src="data:image/png;base64,{{ second_image_base64 }}" alt="График количества тестов по темам">
+    </div>
+</div>
+</body>
+</html>

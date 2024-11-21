@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Регистрация</title>
+    <link rel="stylesheet" type="text/css" href={{url_for('static', filename='style.css') }}>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/256/12145/12145256.png" />
+</head>
+<body>
+<div class="title-container">
+    <div class="header">
+        <h1>Система студентов</h1>
+
+        </div>
+    </div>
+
+</div>
+
+    <p>Добро пожаловать на наш сайт регистрации!</p>
+
+    <form action="/register" method="post">
+
+        <label for="firstname">Имя:</label>
+    <input type="text" id="firstname" name="firstname" oninput="validateName(this)" required><br><br>
+
+    <label for="lastname">Фамилия:</label>
+    <input type="text" id="lastname" name="lastname" oninput="validateName(this)" required><br><br>
+
+    <label for="course">Курс:</label>
+    <input type="text" id="course" name="course" oninput="validateCourse(this)" required><br><br>
+
+    <label for="groupnumber">Номер группы:</label>
+    <input type="text" id="groupnumber" name="groupnumber" oninput="validateGroup(this)" required><br><br>
+
+        <label for="username">Имя пользователя:</label>
+        <input type="text" id="username" name="username" value="{{username}}" required  class="{{ 'error' if 'username' in errors else '' }}" ><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="{{email}}" required><br><br>
+
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" value="{{password}}" required  class="{{ 'error' if 'password' in errors else '' }}"><br><br>
+
+        <input type="submit" value="Зарегистрироваться">
+    </form>
+
+    <c><strong>Уже зарегистрированы? </strong>
+    <a href="/authentication">Войти</a></c>
+
+
+
+
+
+<script>
+
+    function validateName(input) {
+        const regex = /^[А-Яа-яЁё\s]+$/;
+        const value = input.value;
+
+        if (!regex.test(value) && value !== '') {
+            alert("Пожалуйста, используйте только кириллические символы.");
+            // Очистить неправильное значение (по желанию)
+            input.value = value.replace(/[^А-Яа-яЁё\s]/g, '');
+        }
+    }
+
+   function validateCourse(input) {
+        const regex = /^[1-6]$/;
+        const value = input.value;
+
+        if (!regex.test(value) && value !== '') {
+            alert("Пожалуйста, введите число от 1 до 6.");
+            // Очистить неправильное значение
+            input.value = '';
+        }
+    }
+
+ function validateGroup(input, event) {
+        const regex = /^[1-9]\d{0,2}$/;
+        const value = input.value;
+
+        if (!regex.test(value) && value !== '') {
+            alert("Пожалуйста, введите трехзначное число, не начинающееся с 0.");
+            // Позволить вводить дальше, но очистить неправильное значение
+            input.value = value.replace(/[^\d]/g, '').slice(0, 3);
+        }
+
+        // Проверяем, была ли нажата клавиша Backspace
+        if (event && event.keyCode === 8) {
+            // Вернуться на одну цифру назад
+            input.value = value.slice(0, -1);
+        }
+    }
+
+</script>
+
+</body>
+</html>

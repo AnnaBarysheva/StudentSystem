@@ -1,0 +1,237 @@
+<!-- take_test.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href={{url_for('static', filename='style.css') }}>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/256/12145/12145256.png" />
+    <title>Take Test</title>
+</head>
+<body>
+
+<div class="title-container">
+    <div class="header">
+        <h1>Система студентов</h1>
+        <div class="button-container">
+        <a href="/main" class="button button-header">Вернуться на главную</a>
+        </div>
+    </div>
+
+</div>
+<!--    <h1>Take Test Page NO</h1>-->
+<!--    <p>This is the page for taking a test.</p>-->
+
+    <h2>Тест по теме: {{ theme }}</h2>
+
+
+<!--<form action="/submit_answers" method="post" class="custom-form">-->
+<!--    {% for question in questions %}-->
+<!--        {% set question_id = "question_" + loop.index|string %}-->
+<!--        <div class="question">-->
+<!--            <p>{{ question }}</p>-->
+<!--            <div class="answer">-->
+<!--                {% set answer_id = "answer_" + loop.index|string %}-->
+<!--                {% if answer is not none %}-->
+<!--                    <label for="{{ answer_id }}">{{ answer }}</label>-->
+<!--                    <input type="radio" id="{{ answer_id }}" name="{{ question_id }}" value="{{ answer }}">-->
+<!--                {% else %}-->
+<!--                    <label for="custom_answer">Введите свой ответ:</label>-->
+<!--                    <input type="text" id="custom_answer" name="custom_answer">-->
+<!--                {% endif %}-->
+<!--            </div>-->
+<!--            <div class="wrong_answer">-->
+<!--                {% set wrong_answer_id = "wrong_answer_" + loop.index|string %}-->
+<!--                {% if wrong_answer is not none %}-->
+<!--                    <label for="{{ wrong_answer_id }}">{{ wrong_answer }}</label>-->
+<!--                    <input type="radio" id="{{ wrong_answer_id }}" name="{{ question_id }}" value="{{ wrong_answer }}">-->
+<!--                {% endif %}-->
+<!--            </div>-->
+<!--            <br>-->
+<!--        </div>-->
+<!--    {% endfor %}-->
+<!--    <input type="submit" value="Отправить ответы">-->
+<!--</form>-->
+
+
+
+
+<form id="yourFormId" action="/submit_answers" method="post" class="custom-form" onsubmit="return validateForm()">
+    {% for question in questions %}
+        {% set question = questions[loop.index0] %}
+        <div class="question">
+            <p>{{ question }}</p>
+            <div class="answer">
+                {% set answer = answers[loop.index0] %}
+                {% if answer is not none %}
+                    <label for="answer{{ loop.index }}">{{ answer }}</label>
+                    <input type="radio" id="answer{{ loop.index }}" name="answer{{ loop.index }}" value="{{ answer }}" onclick="saveFormValues(); toggleRadio('wrong_answer{{ loop.index }}')">
+                {% endif %}
+            </div>
+            <div class="wrong_answer">
+                {% set wrong_answer = wrong_answers[loop.index0] %}
+                {% if wrong_answer is not none %}
+                    <label for="wrong_answer{{ loop.index }}">{{ wrong_answer }}</label>
+                    <input type="radio" id="wrong_answer{{ loop.index }}" name="wrong_answer{{ loop.index }}" value="{{ wrong_answer }}" onclick="saveFormValues(); toggleRadio('answer{{ loop.index }}')">
+                {% endif %}
+            </div>
+            <br>
+        </div>
+    {% endfor %}
+    <input type="submit" value="Отправить ответы">
+</form>
+
+
+<script>
+    function saveFormValues() {
+        var form = document.getElementById('yourFormId');
+        var formData = {};
+
+        // Iterate through form elements
+        for (var i = 0; i < form.elements.length; i++) {
+            var element = form.elements[i];
+
+            // Check if the element is a radio button and is checked
+            if (element.type === 'radio' && element.checked) {
+                // Extract the question index from the element's name
+                var questionIndex = element.name.replace('answer', '');
+
+                // Store the question index and selected answer value
+                formData['answer' + questionIndex] = element.value;
+            }
+        }
+
+        // You can now use the formData object as needed, such as sending it to the server or performing other actions.
+        console.log(formData);
+    }
+</script>
+
+
+<script>
+    function validateForm() {
+        // Получить все радио-кнопки внутри формы
+        var radioButtons = document.querySelectorAll('input[type="radio"]');
+
+        // Создать группы из попарно расположенных радио-кнопок
+        var questionGroups = [];
+        for (var i = 0; i < radioButtons.length; i += 2) {
+            var pair = [radioButtons[i], radioButtons[i + 1]];
+            questionGroups.push(pair);
+        }
+
+        // Проверить, что хотя бы одна радио-кнопка выбрана для каждой пары вопросов
+        var atLeastOneSelected = questionGroups.every(function (pair) {
+            return pair.some(function (radioButton) {
+                return radioButton.checked;
+            });
+        });
+
+        // Если ни одна радио-кнопка не выбрана, предотвратить отправку формы
+        if (!atLeastOneSelected) {
+            alert('Пожалуйста, выберите ответ на каждый вопрос!');
+            return false; // Предотвращение отправки формы
+        }
+
+        // Проверить, что выбран ответ для каждого вопроса
+        var allQuestionsAnswered = questionGroups.every(function (pair) {
+            return pair.some(function (radioButton) {
+                return radioButton.checked;
+            });
+        });
+
+        // Если не все вопросы были отвечены, вывести предупреждение
+        if (!allQuestionsAnswered) {
+            alert('Ответьте на все вопросы!');
+            return false; // Предотвращение отправки формы
+        }
+
+        // Вернуть true, чтобы разрешить отправку формы
+        return true;
+    }
+</script>
+
+
+
+
+<!--<script>-->
+<!--    function saveFormValues() {-->
+<!--        var formValues = {};-->
+
+<!--        // Получаем все элементы формы-->
+<!--        var formElements = document.getElementById('yourFormId').elements;-->
+
+<!--        // Проходим по каждому элементу и сохраняем его значение в объекте formValues-->
+<!--        for (var i = 0; i < formElements.length; i++) {-->
+<!--            var element = formElements[i];-->
+
+<!--            // Проверяем, является ли элемент радиокнопкой и выбран ли он-->
+<!--            if (element.type === 'radio' && element.checked) {-->
+<!--                // Сохраняем значение радиокнопки в объекте formValues-->
+<!--                formValues[element.name] = element.value;-->
+<!--            }-->
+
+<!--            // Проверяем, является ли элемент текстовым полем-->
+<!--            if (element.type === 'text') {-->
+<!--                // Сохраняем значение текстового поля в объекте formValues-->
+<!--                formValues[element.name] = element.value;-->
+<!--            }-->
+<!--        }-->
+
+<!--        // Теперь у вас есть объект formValues с сохраненными значениями-->
+<!--        console.log(formValues);-->
+
+<!--        // Далее вы можете передать этот объект на сервер или выполнить другие действия-->
+
+<!--    }-->
+<!--</script>-->
+
+
+
+<!--    &lt;!&ndash; test_form.html &ndash;&gt;-->
+<!--<form action="/submit_answers" method="post" class="custom-form">-->
+<!--    {% for question in questions %}-->
+<!--    {% set question = questions[loop.index0] %}-->
+<!--        <div class="question">-->
+<!--            <p>{{ question }}</p>-->
+<!--            <div class="answer">-->
+<!--                {% set answer = answers[loop.index0] %}-->
+<!--                {% if answer is not none %}-->
+<!--                    <label for="answer_{{ loop.index }}">{{ answer }}</label>-->
+
+<!--                    <input type="radio" id="answer_{{ loop.index }}" name="answer_{{ loop.index }}" value="{{ answer }}" onclick="toggleRadio('wrong_answer_{{ loop.index }}')">-->
+<!--                {% else %}-->
+<!--                    <label for="custom_answer">Введите свой ответ:</label>-->
+<!--                    <input type="text" id="custom_answer" name="custom_answer">-->
+<!--                {% endif %}-->
+<!--            </div>-->
+<!--            <div class="wrong_answer">-->
+<!--                {% set wrong_answer = wrong_answers[loop.index0] %}-->
+<!--                {% if wrong_answer is not none %}-->
+<!--                    <label for="wrong_answer_{{ loop.index }}">{{ wrong_answer }}</label>-->
+<!--                    <input type="radio" id="wrong_answer_{{ loop.index }}" name="wrong_answer_{{ loop.index }}" value="{{ wrong_answer }}" onclick="toggleRadio('answer_{{ loop.index }}')">-->
+<!--                {% endif %}-->
+<!--            </div>-->
+<!--            <br>-->
+<!--        </div>-->
+<!--    {% endfor %}-->
+<!--    <input type="submit" value="Отправить ответы">-->
+<!--</form>-->
+
+<script>
+    function toggleRadio(radioId) {
+        var radio = document.getElementById(radioId);
+        // Проверяем, был ли уже выбран этот вариант
+        if (radio.checked) {
+            radio.checked = false;  // Если был, отменяем выбор
+        }
+    }
+</script>
+
+
+
+
+
+
+</body>
+</html>
+

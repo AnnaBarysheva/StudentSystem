@@ -1,0 +1,856 @@
+
+/* Add CSS styles for the first HTML document */
+h1.title {
+    color: blue;
+    font-size: 24px;
+    text-align: center;
+    background-color: lightgray;
+    margin-top: 20px;
+}
+
+/* Add CSS styles for the second HTML document */
+body {
+/*
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+*/
+    font-family: Verdana, sans-serif;
+    font-size: 18px;
+        background:
+        url('background.jpg') no-repeat center center fixed; /* Задний фон */
+        background-size: cover;
+        color: #fff;
+        text-align: center;
+
+    }
+ body::before {
+        content: "";
+        background: inherit;
+
+        /*opacity: 0.6;
+        background: rgba(0, 0, 0, 0.2);*/
+        filter: blur(3px); /* Размытие фонового изображения */
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+
+    }
+}
+
+.header {
+    background-color: #007bff;
+    color: #fff;
+     /* Изменено выравнивание текста на право */
+    padding: 10px;
+    display: flex; /* Добавлено свойство flex для выравнивания элементов по горизонтали */
+    justify-content: space-between; /* Равномерное распределение пространства между элементами */
+    align-items: center; /* Выравнивание элементов по вертикали */
+
+}
+
+.header h1 {
+    font-weight: normal; /* Добавлено для установки тонкого шрифта */
+    margin: 0; /* Убран отступ у параграфа */
+    text-align: left;
+    font-size: 30px;
+    margin-top: 10px;
+    margin-left: 35px;
+}
+
+.header::before {
+        content: "";
+        background-color: #ecb553ac;
+        background-size: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 8%;
+        z-index: -1;
+    }
+
+
+    h1 {
+
+        margin-top: 10px; /* Удалить верхний и нижний отступ для заголовка */
+    }
+
+h2 {
+    margin-top: 25px;
+    color: #fff;
+    font-weight: 4000;
+    font-weight: bold;
+    text-align: center;
+    font-size: 40px
+}
+
+p {
+        font-weight:500;
+         /* Тонкий шрифт для "Система студента" */
+        margin: 0;
+        margin-top: 30px;
+        margin-bottom: 20px;
+
+    }
+
+.welcome-description {
+        text-align: center;
+        margin-top: 10px;
+    margin-left: 20px;
+     margin-right: 20px;
+
+    }
+
+    .welcome-description p {
+        color: #fff; /* Цвет текста */
+        font-size: 25px;
+
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+
+form {
+      width: 400px;
+
+    margin: 0 auto;
+    background-color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border:  none;
+}
+
+.authen_container {
+    margin-top: 0px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #ecb553;
+    font-weight: bold;
+}
+
+
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 97%;
+    padding: 10px ;
+    margin-bottom: 10px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+}
+
+
+
+input[type="submit"] {
+    background-color: #ecb553;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+input[type="submit"]:hover {
+        background-color: #fff;
+        color: #ecb553;
+    }
+
+ c {
+     margin-top: auto;
+        color: #fff;
+        font-weight: 400;
+        text-align: center;
+
+    }
+strong {
+        font-weight: bold;
+    }
+a {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 5px 20px;
+        background-color: #ecb553;
+        color: #fff;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+
+    }
+
+
+    .button-registration
+    {
+    background: none;
+    }
+
+    a:hover {
+        background-color: #fff;
+        color: #ecb553;
+    }
+
+
+.button button-forget{
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px 20px;
+    background-color: none;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    }
+
+
+button button-forget:hover {
+    background-color: #fff;
+    color: #ecb553;
+}
+
+
+
+
+////
+/* Общие стили для элементов с классом "home" */
+.container {
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    position: relative; /* Добавлено позиционирование относительно .container */
+}
+
+.welcome {
+    text-align: center; /* Изменено выравнивание текста на лево */
+    margin: 100px 0;
+    position: relative;
+    /* Добавлено позиционирование относительно .welcome */
+     height:600px;
+}
+
+.welcome h1 {
+    font-size: 36px;
+    color: #fff;
+}
+
+.welcome p {
+
+    font-size: 27px;
+    color: #fff;
+    margin: 0;
+    margin-bottom: 15px;
+    margin-left:80px;
+    margin-right:800px;
+    text-align: center;
+}
+
+.welcome::before {
+    content: ""; /* Создаем псевдоэлемент для фона */
+    position: absolute;
+    top: 40%;
+    left: 0;
+    transform: translateY(-50%); /* Сдвигаем фон по вертикали на половину его высоты */
+    width: 100%;
+    height: 90%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+.welcome-image {
+    flex: 1;
+    margin-top: 0px;
+    margin-right: 80px; /* Уменьшено значение для правильного выравнивания */
+    text-align: right;
+    margin-top: -420px;
+}
+
+.welcome-image img {
+    max-width: 100%; /* Убрано значение для правильного отображения */
+    height: auto;
+    border-radius: 30px; /* Добавлено свойство border-radius для закругленных краев */
+}
+
+.title-container {
+    flex: 1; /* Занимает доступное пространство */
+
+}
+
+.button-container {
+    gap: 10px;
+    margin-top: -40px;
+    margin-left: 1170px;
+}
+
+
+
+
+.button {
+    display: inline-block;
+    font-size: 18px;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Стили для кнопки Зарегистрироваться */
+.button-header {
+    background: none;
+    }
+
+/* Стили для кнопки Войти */
+.button-authentication {
+    background: none;
+
+}
+
+.button-profile {
+    background: none;
+
+}
+
+/* Стили для изменения цвета при наведении */
+.button:hover {
+    background-color: #fff;
+    color: #ecb553;
+
+}
+
+.button button-header{
+
+}
+
+
+
+
+.error {
+    background-color: #ffcccc; /* Красный фон */
+}
+
+
+
+
+
+/*этого нет, оно просто button*/
+.test_button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 18px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #ecb553;;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.test_button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Стили для вывода вопросов */
+.question {
+    background-color: #fff;
+
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.question p {
+    margin: 0;
+    font-weight: bold;
+    color:#ecb553;
+}
+
+
+
+/* Отцентрированный контейнер для профиля с темным фоном */
+.profile-container {
+    align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
+    background: #000;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+
+    position: relative; /* Устанавливаем позицию относительно */
+    z-index: 1; /*? Поднимаем контейнер над псевдоэлементом (его нет)*/
+    align-items: center;
+     min-height: 170px;
+     margin-top: 50px;
+    left: 27.5%;
+     width: 45%;
+     height: 100%;
+
+
+}
+
+.profile-container h1{
+    margin: 10px;
+}
+
+
+.change-profile-container {
+    display: flex;
+    background: #000;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 50px;
+    width: 45%;
+    position: absolute;
+    left: 27.5%; /* 50% ширины контейнера, делённое пополам */
+    gap: 5px; /* Расстояние между элементами */
+}
+
+.change-button-container{
+    display: flex;
+
+}
+
+.change-username-container, change-email-container, change-password-container
+{
+    flex: 1;
+
+}
+
+#username-change-form, #password-change-form, #email-change-form{
+  display: none;
+  width: auto;
+}
+
+
+
+.profile-photo {
+
+    width: 150px; /* Задайте ширину изображения по вашему желанию */
+    height: 150px; /* Сохраняйте пропорции изображения */
+
+}
+
+.profile-photo img{
+    background-color: #fff;
+    width: 170px; /* Задайте ширину изображения по вашему желанию */
+    height: auto; /* Сохраняйте пропорции изображения */
+    margin-left: 40px;
+    margin-top: 30px;
+    margin-right: 20px; /* Центрируйте изображение с отступами сверху и снизу */
+    border-radius: 15px;
+}
+
+
+.profile-info {
+    flex: 1;
+    color: #fff; /* Цвет текста */
+    width: 300px; /* Задайте ширину изображения по вашему желанию */
+    height: auto;
+    margin-top: 10px;
+
+    padding-left: 20px;
+}
+
+.profile-info h1{
+margin-top: 5px;
+}
+
+.radio-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .radio-container input[type="radio"] {
+            margin-right: 5px;
+        }
+
+.a-profile {
+    width: 190px; /* Замените этот размер на нужный вам */
+    height: 40px;
+     margin-right: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.username-change-form{
+
+}
+
+
+
+.change-email-button{
+    flex-direction: column;
+    align-items: center; /* Выравнивание по вертикали */
+    margin-top: 20px; /* Регулируйте значение, чтобы установить нужный отступ сверху */
+    margin-bottom: 20px;
+    margin-right: 20px;
+
+}
+
+.username-done-button{
+     display: inline-block;
+        margin-top: 10px;
+        padding: 5px 20px;
+        background-color: #ecb553;
+        color: #fff;
+        text-decoration: none;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+}
+
+.password-input {
+    width: 90%;
+    left: 5%; /
+}
+
+.password-change-form{
+    width: 90%;
+    left: 5%;}
+
+
+
+.test-header h1 {
+    margin-top: 30px; /* Удалить верхний и нижний отступ для заголовка */
+}
+
+/*----------------test_form.html--------------------*/
+
+
+form.custom-form {
+    width: 900px;
+
+    margin: 0 auto;
+    background-color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border: none;
+    /* Дополнительные стили, если необходимо */
+}
+
+.question {
+    color:black;
+    align-items: center; /* Выравнивание элементов по центру вертикально */
+}
+
+
+.answer {
+    text-color:black;
+    text-align: left;
+    margin-top: 15px;
+    display: flex;
+    align-items: center; /* Выравнивание элементов по центру вертикально */
+}
+
+.wrong_answer {
+    text-align: left;
+    margin-top: 10px;
+    display: flex;
+    align-items: center; /* Выравнивание элементов по центру вертикально */
+}
+
+input[type="radio"] {
+    order: -1; /* Изменение порядка отображения радиокнопки (сдвиг влево) */
+    margin-right: 10px; /* Добавление небольшого отступа между радиокнопкой и текстом */
+    margin-bottom: 10px;
+}
+
+/*---------------------------------------------*/
+
+.students-info{
+    align-items: center;
+}
+
+table {
+    width: 80%;
+    margin-left: 10%;
+    border-collapse: collapse;
+    margin-top: 40px; /* Регулируйте отступ вверху по вашему вкусу */
+    border: 2px solid #ddd; /* Add this line to set the border around the table */
+}
+
+th, td, tr {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    color: #000;
+}
+
+th, tr {
+    background-color: #f2f2f2;
+}
+
+.button-container {
+    display: flex;
+    /*flex-direction: column;*/
+}
+
+.button {
+    margin-bottom: 10px; /* или другое значение отступа между кнопками */
+}
+
+
+
+add-student-form {
+    width: 400px;  /*max-width: 400px;*/
+
+    margin: 0 auto;
+    background-color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border:  none;
+}
+
+
+
+-------------------------------------------
+
+
+.main_container {
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+.main_image_container {
+     background-color: rgba(0, 0, 0, 0.55); /* Черный полупрозрачный фон */
+    padding: 20px;
+    margin-top: 20px;
+    width: 60%;
+    margin-left:20%;
+    height:80%;
+}
+
+.mainmain-container {
+     background-color: rgba(0, 0, 0, 0.55); /* Черный полупрозрачный фон */
+    padding: 20px;
+    margin-top: 20px;
+    width: 60%;
+    margin-left:20%;
+}
+
+.main_tets_image, .main_res_image {
+    display: inline-block; /* Чтобы элементы выстраивались горизонтально */
+    text-align: center; /* Чтобы кнопка и изображение выравнивались по центру внутри блока */
+    width: 200px; /* Фиксированная ширина контейнера */
+    height: 250px;
+    margin-top:20px;
+}
+
+.main_tets_image img, .main_res_image img {
+    display: block;
+    margin: 0 auto;
+    padding: 0; /* Убираем padding, чтобы изображение было в пределах контейнера */
+
+}
+
+.main_tets_image a, .main_res_image a {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    background-color: #fff;
+    color: #ecb553;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    width: 130px;
+    height: 170px;
+}
+
+.mainmain-container li{
+    font-size: 24px;
+    font-weight:500;
+    /* Тонкий шрифт для "Система студента" */
+    margin: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #fff; /* Fully transparent text color */
+    webkit-text-stroke: 1px #FFFFFF; /* Толщина и цвет обводки */
+    text-stroke: 1px #FFFFFF; /* Толщина и цвет обводки (стандартное свойство) */
+    list-style: none;
+
+
+}
+
+
+.main-text-container ul {
+    list-style-type: none; /* Убираем стандартные маркеры */
+    padding: 0; /* Убираем внутренний отступ у списка */
+}
+
+.main-text-container ul li {
+    position: relative;
+    padding-left: 30px; /* Даем отступ слева для изображения галочки */
+    margin-bottom: 10px;
+}
+
+.main-text-container ul li::before {
+    content: ''; /* Генерируем контент для псевдоэлемента ::before */
+    position: absolute;
+    left: 0;
+    top: 5px;
+     width: 30px; /* Увеличиваем размер изображения галочки */
+    height: 30px;
+    background-image: url('https://cdn-icons-png.flaticon.com/128/5218/5218453.png'); /* Путь к изображению галочки */
+    background-size: cover; /* Растягиваем изображение, чтобы оно полностью заполнило блок */
+}
+
+.main-text-container h3{
+ font-size: 36px;
+        font-weight:500;
+         /* Тонкий шрифт для "Система студента" */
+        margin: 0;
+        margin-top: 20px;
+        margin-bottom: 20px;
+         color: transparent; /* Fully transparent text color */
+
+
+        -webkit-text-stroke: 1px #FFFFFF; /* Толщина и цвет обводки */
+        text-stroke: 1px #FFFFFF; /* Толщина и цвет обводки (стандартное свойство) */
+}
+
+
+.result-container p {
+        font-size: 36px;
+        font-weight:500;
+         /* Тонкий шрифт для "Система студента" */
+        margin: 0;
+        margin-top: 20px;
+        margin-bottom: 20px;
+         color: transparent; /* Fully transparent text color */
+
+
+        -webkit-text-stroke: 1px #FFFFFF; /* Толщина и цвет обводки */
+        text-stroke: 1px #FFFFFF; /* Толщина и цвет обводки (стандартное свойство) */
+}
+
+
+/* Стиль для элемента select */
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Стиль для опций внутри элемента select */
+select option {
+    padding: 8px;
+}
+
+
+.view-result-container p {
+    font-size: 24px;
+    color: #fff; /* Цвет текста */
+    background-color: #ecb553; /* Цвет фона */
+    opacity: 0.8;
+    padding: 10px; /* Отступ вокруг текста */
+    border-radius: 8px; /* Закругленные углы */
+    width: 30%;
+    margin-left: 35%;
+
+}
+
+.button button-none-result{
+
+    padding: 10px 20px;
+    font-size: 18px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #ecb553;;
+    border-radius: 5px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+
+
+
+/* Пример CSS в файле style.css */
+
+.custom-form {
+    /* Добавьте общие стили для вашей формы, если необходимо */
+}
+
+.right-answer-container ul,
+.wrong-answer-container ul {
+    list-style-type: none; /* Убираем маркеры списка */
+    padding: 0; /* Убираем отступы */
+}
+
+.right-answer-container li,
+.wrong-answer-container li {
+    font-size: 18px; /* Задайте желаемый размер шрифта */
+    margin-bottom: 20px; /* Добавьте отступ между элементами списка */
+    text-align: left;
+    line-height: 1.5;
+}
+
+.right-answer-container strong, .wrong-answer-container strong {
+    display: block;
+    margin-bottom: 5px;
+
+    /* Apply the white outline with fully transparent letters */
+    color: #ecb553; /* Fully transparent text color */
+
+}
+
+.result-mark-container h2{
+    font-size: 20px;
+    color: #ecb553;
+}
+
+.separator-line {
+        border-top: 3px solid #fff; /* толщина, тип и цвет линии */
+        margin: 20px 0; /* отступ сверху и снизу линии */
+    }
+
+.result-block ul {
+list-style: none;
+padding: 0;
+}
+
+        .result-block li {
+        list-style: none;
+            width: 60%;
+            margin-left: 20%;
+            margin-bottom: 20px;
+            border: 2px solid #ecb553;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.6);
+            line-height: 1.5;
+        }
+
+
+
+h3{
+    display: block;
+    font-size: 24px;
+
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}}
+

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/256/12145/12145256.png" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>View Results</title>
+</head>
+
+<body>
+
+    <div class="title-container">
+        <div class="header">
+            <h1>Система студентов</h1>
+            <div class="button-container">
+                <a href="/main" class="button button-header">Вернуться на главную</a>
+            </div>
+        </div>
+    </div>
+<div class="result-container">
+    <h3>Здесь вы можете просмотреть информацию о тестах</h3>
+
+ <div class="view-result-container">
+    {% if test_results %}
+
+    <!-- Форма для поиска -->
+     <form action="/view_results" method="post" onsubmit="return validateForm();">
+    <h3>Для быстрого поиска ведите тему теста или дату его написания</h3>
+    <div class="separator-line"></div>
+    <label for="theme">Введите тему:</label>
+    <select id="theme" name="theme">
+        <option value="">-- Выберите тему --</option>
+        <!-- Здесь будут динамически добавлены темы из базы данных -->
+    </select>
+
+    <label for="date">Введите дату:</label>
+    <div class="input-group">
+        <input type="text" id="date" name="date" placeholder="YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}" title="Введите дату в формате YYYY-MM-DD" class="form-control" min="1900-01-01" max="9999-12-31">
+        <div class="input-group-append"></div>
+    </div>
+
+    <input type="submit" value="Поиск">
+
+
+
+</form>
+
+
+     <a href="/save_to_word" class="button-none-result">Сохранить отчёт DOCX</a>
+
+
+
+</div>
+
+<!--    <label for="sort">Сортировать по оценкам:</label>-->
+<!--    <select id="sort" onchange="sortResults()">-->
+<!--        <option value="asc">По возрастанию</option>-->
+<!--        <option value="desc">По убыванию</option>-->
+<!--    </select>-->
+
+<!--    <button onclick="sortResults()">Сортировать</button>-->
+
+
+     <ul id="resultsList">
+        {% for result in test_results %}
+            <div class="result-block">
+                <li>
+                    <strong>Тема:</strong> {{ result[5] }}<br>
+                    <strong>Оценка: </strong> {{ result[3] }}<br>
+                    <strong>Дата прохождения: </strong> {{ result[2] }}<br>
+                    <strong>Средняя оценка:</strong> {{ result[4] }}<br>
+                </li>
+            </div>
+            {% endfor %}
+        </ul>
+{% endif %}
+       {% if theme or date %}
+
+    {% if search_test_results %}
+
+        <ul>
+            {% for result in search_test_results %}
+            <h3></h3>
+                <div class="result-block">
+                    <li>
+                        <strong>Тема:</strong> {{ result[5] }}<br>
+                        <strong>Оценка: </strong> {{ result[3] }}<br>
+                        <strong>Дата прохождения: </strong> {{ result[2] }}<br>
+                        <strong>Средняя оценка:</strong> {{ result[4] }}<br>
+                    </li>
+                </div>
+            {% endfor %}
+        </ul>
+
+<!--  <a href="/search_save_to_word" class="button-none-result" onclick="saveToWord()">Сохранить отчёт DOCX</a>-->
+
+
+
+
+    {% else %}
+            <p>Подходящих тестов не найдено</p>
+            <a href="/view_results" class="button-none-result">Вернуться на главную</a>
+        {% endif %}
+{% else %}
+    <script>
+        showAlert();
+    </script>
+{% endif %}
+</div>
+
+<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>-->
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>-->
+
+<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+<!--<script>-->
+<!--function sortResults() {-->
+<!--    var sortOrder = document.getElementById('sort').value;-->
+<!--    var resultsList = document.getElementById('resultsList');-->
+<!--    var items = resultsList.getElementsByTagName('div');-->
+
+<!--    var sortedItems = Array.from(items).sort(function (a, b) {-->
+<!--        var valueA = parseFloat(a.querySelector('strong:nth-child(3)').innerText.split(':')[1].trim());-->
+<!--        var valueB = parseFloat(b.querySelector('strong:nth-child(3)').innerText.split(':')[1].trim());-->
+
+<!--        if (sortOrder === 'asc') {-->
+<!--            return valueA - valueB;-->
+<!--        } else {-->
+<!--            return valueB - valueA;-->
+<!--        }-->
+<!--    });-->
+
+<!--    for (var i = 0; i < sortedItems.length; i++) {-->
+<!--        resultsList.appendChild(sortedItems[i]);-->
+<!--    }-->
+<!--}-->
+
+
+<!--</script>-->
+
+
+
+
+
+
+<script>
+    function validateForm() {
+    var themeValue = themeSelect.value;
+    var dateValue = document.getElementById("date").value.trim();
+
+    if (themeValue.trim() === '' && dateValue === '') {
+        showAlert("Пожалуйста, заполните хотя бы одно поле");
+        return false;
+    }
+
+    try {
+        if (dateValue !== '') {
+            var date = new Date(dateValue);
+            var minDate = new Date('1900-01-01');
+            var maxDate = new Date('9999-12-31');
+
+            if (isNaN(date) || date < minDate || date > maxDate) {
+                throw "Дата вне разумного диапазона или имеет неверный формат";
+            }
+        }
+
+        return true;
+    } catch (error) {
+        showAlert("Предупреждение: " + error);
+        return false;
+    }
+}
+
+function showAlert(message) {
+    alert(message);
+}
+
+
+</script>
+
+
+
+<script>
+    // Добавление тем из базы данных в выпадающий список
+    var themesFromDB = {{ themes | tojson | safe }};
+    var themeSelect = document.getElementById("theme");
+
+    for (var i = 0; i < themesFromDB.length; i++) {
+        var option = document.createElement("option");
+        option.value = themesFromDB[i];
+        option.text = themesFromDB[i];
+        themeSelect.appendChild(option);
+    }
+
+
+
+
+
+
+   function saveToWord() {
+    var themeSelect = document.getElementById("theme");
+
+    // Проверка, существует ли элемент с id "theme"
+    if (themeSelect) {
+        var themeValue = themeSelect.value;
+        var dateValue = document.getElementById("date").value;
+
+        var url = `/search_save_to_word?theme=${themeValue}&date=${dateValue}`;
+        window.location.href = url;
+    } else {
+        console.error("Элемент с id 'theme' не найден.");
+    }
+}
+
+
+</script>
+
+
+
+
+
+
+</body>
+
+
+
+</html>

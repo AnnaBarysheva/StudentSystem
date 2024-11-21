@@ -1,0 +1,67 @@
+<!-- main.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href={{url_for('static', filename='style.css') }}>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/256/12145/12145256.png" />
+    <title>Main Page</title>
+</head>
+<body>
+<div class="title-container">
+<div class="header">
+        <h1>Система студентов</h1>
+    <div class="button-container">
+    <a href="/profile" class="button button-profile">Мой профиль</a>
+    <a href="/ " class="button button-profile">Выйти</a>
+
+</div>
+<div class="mainmain-container">
+
+    <div class="main-text-container">
+
+     <h3>На нашем сайте вы можете:</h3>
+    <ul>
+        <li>Пройти тесты по различным темам и предметам.</li>
+        <li>Просмотреть результаты предыдущих тестирований.</li>
+        <li>Узнать подробную информацию о студентах.</li>
+        <!-- Добавьте дополнительные пункты по мере необходимости. -->
+    </ul>
+        <div class="separator-line"></div>
+    <p>Выберите интересующую вас функцию, используя кнопки ниже.</p>
+        </div>
+</div>
+</div>
+<div class="main_image_container">
+
+
+
+    <div class="main_tets_image">
+        <a href="{{ url_for('take_test') }}" class="button">
+            <img src="https://cdn-icons-png.flaticon.com/128/4008/4008657.png" alt="Пройти тест">
+            <span>Пройти тест</span>
+        </a>
+    </div>
+
+<!--    <a href="{{ url_for('take_test') }}" class="button">Пройти тест</a>-->
+<!--    <input type="image" src="https://www.flaticon.com/ru/free-icon/exam_4008657" alt="Пройти тест">-->
+    <div class="main_res_image">
+    <!-- Кнопка для просмотра оценок за тест -->
+
+
+        <a href="{{ url_for('view_results') }}" class="button">
+            <img src="https://cdn-icons-png.flaticon.com/128/1844/1844921.png" alt="Просмотреть оценки за тест">
+            <span>Просмотреть оценки</span>
+        </a>
+
+    </div>
+</div>
+
+  <div class="text">
+      {{text}}
+    </div>
+
+</div>
+</body>
+</html>

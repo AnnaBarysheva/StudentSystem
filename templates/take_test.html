@@ -1,0 +1,58 @@
+<!-- take_test.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href={{url_for('static', filename='style.css') }}>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/256/12145/12145256.png" />
+    <title>Take Test</title>
+</head>
+<body>
+
+
+<div class="title-container">
+    <div class="header">
+        <h1>Система студентов</h1>
+        <div class="button-container">
+        <a href="/main" class="button button-profile">Вернуться на главную</a>
+    </div>
+</div>
+    <h1> </h1>
+    <div class="test-header">
+        <h1>Выберите тему теста:</h1>
+    </div>
+</div>
+
+    <!-- Форма для выбора темы теста -->
+     <form id="testForm" action="/take_test" method="post" onsubmit="return validateForm()">
+        <label></label>
+
+        <!-- Кружочки для выбора темы -->
+        {% for theme in themes %}
+            <div class="radio-container">
+                <input type="radio" id="{{ theme }}" name="test_theme" value="{{ theme }}">
+                <label for="{{ theme }}">{{ theme }}</label>
+            </div>
+        {% endfor %}
+
+        <br>
+
+        <input type="submit" value="Пройти тест">
+    </form>
+
+    <script>
+        function validateForm() {
+            var selectedTheme = document.querySelector('input[name="test_theme"]:checked');
+
+            if (!selectedTheme) {
+                alert("Выберите тему теста!");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+
+</body>
+</html>
