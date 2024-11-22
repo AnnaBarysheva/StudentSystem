@@ -27,8 +27,6 @@
     <!-- Форма для выбора темы теста -->
      <form id="testForm" action="/take_test" method="post" onsubmit="return validateForm()">
         <label></label>
-
-        <!-- Кружочки для выбора темы -->
         {% for theme in themes %}
             <div class="radio-container">
                 <input type="radio" id="{{ theme }}" name="test_theme" value="{{ theme }}">
