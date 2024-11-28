@@ -3,39 +3,40 @@
 
 <head>
     <title>Авторизация</title>
-    <link rel="stylesheet" type="text/css" href={{url_for('static', filename='style.css') }}>
-    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/256/12145/12145256.png" />
+    <link rel="stylesheet" type="text/css" href={{url_for('static', filename='style.css' ) }}>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/256/12145/12145256.png"/>
 </head>
 
 <body>
-<div class="title-container">
-    <div class="header">
-        <h1>Система студентов</h1>
 
-        </div>
-    </div>
-
+<div class="header">
+    <div class="header_text">Система студентов</div>
 </div>
 
-    <p>Добро пожаловать на наш сайт регистрации!</p>
+<div class="auth_form_container">
+
+<div class="authent_text">
+    <p>Добро пожаловать на страницу авторизации</p>
+</div><hr>
+
+<form action="/login" method="POST">
+    <label for="username">Имя пользователя:</label>
+    <input type="text" id="username" name="username" value="{{username}}"
+           class="{{ 'error' if 'username' in errors else '' }}" required><br>
+
+    <label for="password">Пароль:</label>
+    <input type="password" id="password" name="password" value="{{password}}"
+           class="{{ 'error' if 'password' in errors else '' }}" required><br>
+    <input type="submit" value="Войти">
 
 
-    <form action="/login" method="POST">
-        <label for="username">Имя пользователя:</label>
-        <input type="text" id="username" name="username" value="{{username}}" class="{{ 'error' if 'username' in errors else '' }}" required><br>
-
-        <label for="password">Пароль:</label>
-        <input type="password" id="password" name="password" value="{{password}}" class="{{ 'error' if 'password' in errors else '' }}" required><br>
-        <input type="submit" value="Войти">
-
-
-
-    </form>
-<div class="authen_container">
-<c><strong>Ещё не зарегистрированы? </strong>
-    <a href="/registration">Перейти к регистрации</a></c>
+</form><hr>
+<div class="sumbit_container">
+    <strong>Ещё не зарегистрированы?</strong>
+    <a href="/registration">Регистрация</a>
 </div>
-<!--    <a href="/forget_password" class="button button-profile">Забыли пароль?</a>-->
+
+</div>
 </body>
 
 </html>

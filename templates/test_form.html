@@ -10,51 +10,17 @@
 </head>
 <body>
 
-<div class="title-container">
-    <div class="header">
-        <h1>Система студентов</h1>
-        <div class="button-container">
-        <a href="/main" class="button button-header">Вернуться на главную</a>
-        </div>
+
+<div class="header">
+    <div class="header_text">Система студентов</div>
+    <div class="button-container">
+    <a href="/main" class="button button-header">Вернуться на главную</a>
     </div>
-
 </div>
-<!--    <h1>Take Test Page NO</h1>-->
-<!--    <p>This is the page for taking a test.</p>-->
 
-    <h2>Тест по теме: {{ theme }}</h2>
-
-
-<!--<form action="/submit_answers" method="post" class="custom-form">-->
-<!--    {% for question in questions %}-->
-<!--        {% set question_id = "question_" + loop.index|string %}-->
-<!--        <div class="question">-->
-<!--            <p>{{ question }}</p>-->
-<!--            <div class="answer">-->
-<!--                {% set answer_id = "answer_" + loop.index|string %}-->
-<!--                {% if answer is not none %}-->
-<!--                    <label for="{{ answer_id }}">{{ answer }}</label>-->
-<!--                    <input type="radio" id="{{ answer_id }}" name="{{ question_id }}" value="{{ answer }}">-->
-<!--                {% else %}-->
-<!--                    <label for="custom_answer">Введите свой ответ:</label>-->
-<!--                    <input type="text" id="custom_answer" name="custom_answer">-->
-<!--                {% endif %}-->
-<!--            </div>-->
-<!--            <div class="wrong_answer">-->
-<!--                {% set wrong_answer_id = "wrong_answer_" + loop.index|string %}-->
-<!--                {% if wrong_answer is not none %}-->
-<!--                    <label for="{{ wrong_answer_id }}">{{ wrong_answer }}</label>-->
-<!--                    <input type="radio" id="{{ wrong_answer_id }}" name="{{ question_id }}" value="{{ wrong_answer }}">-->
-<!--                {% endif %}-->
-<!--            </div>-->
-<!--            <br>-->
-<!--        </div>-->
-<!--    {% endfor %}-->
-<!--    <input type="submit" value="Отправить ответы">-->
-<!--</form>-->
-
-
-
+<div class="test-text">
+    <h1>Тест по теме: {{ theme }}</h1>
+</div>
 
 <form id="yourFormId" action="/submit_answers" method="post" class="custom-form" onsubmit="return validateForm()">
     {% for question in questions %}

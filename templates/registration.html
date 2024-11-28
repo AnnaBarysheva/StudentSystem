@@ -1,55 +1,56 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Регистрация</title>
-    <link rel="stylesheet" type="text/css" href={{url_for('static', filename='style.css') }}>
-    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/256/12145/12145256.png" />
+    <link rel="stylesheet" type="text/css" href={{url_for('static', filename='style.css' ) }}>
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/256/12145/12145256.png"/>
 </head>
 <body>
-<div class="title-container">
-    <div class="header">
-        <h1>Система студентов</h1>
 
-        </div>
-    </div>
-
+<div class="header">
+    <div class="header_text">Система студентов</div>
 </div>
 
-    <p>Добро пожаловать на наш сайт регистрации!</p>
+<div class="auth_form_container">
 
-    <form action="/register" method="post">
+<div class="registr_text">
+    <p>Добро пожаловать на страницу регистрации</p>
+</div><hr>
 
-        <label for="firstname">Имя:</label>
-    <input type="text" id="firstname" name="firstname" oninput="validateName(this)" required><br><br>
+<form action="/register" method="post">
+
+    <label for="firstname">Имя:</label>
+    <input type="text" id="firstname" name="firstname" oninput="validateName(this)" required><br>
 
     <label for="lastname">Фамилия:</label>
-    <input type="text" id="lastname" name="lastname" oninput="validateName(this)" required><br><br>
+    <input type="text" id="lastname" name="lastname" oninput="validateName(this)" required><br>
 
     <label for="course">Курс:</label>
-    <input type="text" id="course" name="course" oninput="validateCourse(this)" required><br><br>
+    <input type="text" id="course" name="course" oninput="validateCourse(this)" required><br>
 
     <label for="groupnumber">Номер группы:</label>
-    <input type="text" id="groupnumber" name="groupnumber" oninput="validateGroup(this)" required><br><br>
+    <input type="text" id="groupnumber" name="groupnumber" oninput="validateGroup(this)" required><br>
 
-        <label for="username">Имя пользователя:</label>
-        <input type="text" id="username" name="username" value="{{username}}" required  class="{{ 'error' if 'username' in errors else '' }}" ><br><br>
+    <label for="username">Имя пользователя:</label>
+    <input type="text" id="username" name="username" value="{{username}}" required
+           class="{{ 'error' if 'username' in errors else '' }}"><br>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="{{email}}" required><br><br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="{{email}}" required><br>
 
-        <label for="password">Пароль:</label>
-        <input type="password" id="password" name="password" value="{{password}}" required  class="{{ 'error' if 'password' in errors else '' }}"><br><br>
+    <label for="password">Пароль:</label>
+    <input type="password" id="password" name="password" value="{{password}}" required
+           class="{{ 'error' if 'password' in errors else '' }}"><br><br>
 
-        <input type="submit" value="Зарегистрироваться">
-    </form>
+    <input type="submit" value="Зарегистрироваться">
+</form><hr>
 
-    <c><strong>Уже зарегистрированы? </strong>
+<div class="sumbit_container">
+    <strong>Уже зарегистрированы? </strong>
     <a href="/authentication">Войти</a></c>
+</div>
 
-
-
-
+</div>
 
 <script>
 

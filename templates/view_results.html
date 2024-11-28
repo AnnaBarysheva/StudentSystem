@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
-    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/256/12145/12145256.png" />
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/256/12145/12145256.png"/>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -14,103 +14,100 @@
 
 <body>
 
-    <div class="title-container">
-        <div class="header">
-            <h1>Система студентов</h1>
-            <div class="button-container">
-                <a href="/main" class="button button-header">Вернуться на главную</a>
-            </div>
-        </div>
+
+<div class="header">
+    <div class="header_text">Система студентов</div>
+    <div class="button-container">
+        <a href="/main" class="button button-header">Вернуться на главную</a>
     </div>
+</div>
+
 <div class="result-container">
     <h3>Здесь вы можете просмотреть информацию о тестах</h3>
 
- <div class="view-result-container">
-    {% if test_results %}
+    <div class="view-result-container">
+        {% if test_results %}
 
-    <!-- Форма для поиска -->
-     <form action="/view_results" method="post" onsubmit="return validateForm();">
-    <h3>Для быстрого поиска ведите тему теста или дату его написания</h3>
-    <div class="separator-line"></div>
-    <label for="theme">Введите тему:</label>
-    <select id="theme" name="theme">
-        <option value="">-- Выберите тему --</option>
-        <!-- Здесь будут динамически добавлены темы из базы данных -->
-    </select>
+        <!-- Форма для поиска -->
+        <form action="/view_results" method="post" onsubmit="return validateForm();">
+            <h3>Для быстрого поиска ведите тему теста или дату его написания</h3>
+            <div class="separator-line"></div>
+            <label for="theme">Введите тему:</label>
+            <select id="theme" name="theme">
+                <option value="">-- Выберите тему --</option>
+                <!-- Здесь будут динамически добавлены темы из базы данных -->
+            </select>
 
-    <label for="date">Введите дату:</label>
-    <div class="input-group">
-        <input type="text" id="date" name="date" placeholder="YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}" title="Введите дату в формате YYYY-MM-DD" class="form-control" min="1900-01-01" max="9999-12-31">
-        <div class="input-group-append"></div>
+            <label for="date">Введите дату:</label>
+            <div class="input-group">
+                <input type="text" id="date" name="date" placeholder="YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}"
+                       title="Введите дату в формате YYYY-MM-DD" class="form-control" min="1900-01-01" max="9999-12-31">
+                <div class="input-group-append"></div>
+            </div>
+
+            <input type="submit" value="Поиск">
+
+
+        </form>
+
+
+        <a href="/save_to_word" class="button-none-result">Сохранить отчёт DOCX</a>
+
+
     </div>
 
-    <input type="submit" value="Поиск">
+    <!--    <label for="sort">Сортировать по оценкам:</label>-->
+    <!--    <select id="sort" onchange="sortResults()">-->
+    <!--        <option value="asc">По возрастанию</option>-->
+    <!--        <option value="desc">По убыванию</option>-->
+    <!--    </select>-->
+
+    <!--    <button onclick="sortResults()">Сортировать</button>-->
 
 
-
-</form>
-
-
-     <a href="/save_to_word" class="button-none-result">Сохранить отчёт DOCX</a>
-
-
-
-</div>
-
-<!--    <label for="sort">Сортировать по оценкам:</label>-->
-<!--    <select id="sort" onchange="sortResults()">-->
-<!--        <option value="asc">По возрастанию</option>-->
-<!--        <option value="desc">По убыванию</option>-->
-<!--    </select>-->
-
-<!--    <button onclick="sortResults()">Сортировать</button>-->
-
-
-     <ul id="resultsList">
+    <ul id="resultsList">
         {% for result in test_results %}
-            <div class="result-block">
-                <li>
-                    <strong>Тема:</strong> {{ result[5] }}<br>
-                    <strong>Оценка: </strong> {{ result[3] }}<br>
-                    <strong>Дата прохождения: </strong> {{ result[2] }}<br>
-                    <strong>Средняя оценка:</strong> {{ result[4] }}<br>
-                </li>
-            </div>
-            {% endfor %}
-        </ul>
-{% endif %}
-       {% if theme or date %}
+        <div class="result-block">
+            <li>
+                <strong>Тема:</strong> {{ result[5] }}<br>
+                <strong>Оценка: </strong> {{ result[3] }}<br>
+                <strong>Дата прохождения: </strong> {{ result[2] }}<br>
+                <strong>Средняя оценка:</strong> {{ result[4] }}<br>
+            </li>
+        </div>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% if theme or date %}
 
     {% if search_test_results %}
 
-        <ul>
-            {% for result in search_test_results %}
-            <h3></h3>
-                <div class="result-block">
-                    <li>
-                        <strong>Тема:</strong> {{ result[5] }}<br>
-                        <strong>Оценка: </strong> {{ result[3] }}<br>
-                        <strong>Дата прохождения: </strong> {{ result[2] }}<br>
-                        <strong>Средняя оценка:</strong> {{ result[4] }}<br>
-                    </li>
-                </div>
-            {% endfor %}
-        </ul>
+    <ul>
+        {% for result in search_test_results %}
+        <h3></h3>
+        <div class="result-block">
+            <li>
+                <strong>Тема:</strong> {{ result[5] }}<br>
+                <strong>Оценка: </strong> {{ result[3] }}<br>
+                <strong>Дата прохождения: </strong> {{ result[2] }}<br>
+                <strong>Средняя оценка:</strong> {{ result[4] }}<br>
+            </li>
+        </div>
+        {% endfor %}
+    </ul>
 
-<!--  <a href="/search_save_to_word" class="button-none-result" onclick="saveToWord()">Сохранить отчёт DOCX</a>-->
-
-
+    <!--  <a href="/search_save_to_word" class="button-none-result" onclick="saveToWord()">Сохранить отчёт DOCX</a>-->
 
 
     {% else %}
-            <p>Подходящих тестов не найдено</p>
-            <a href="/view_results" class="button-none-result">Вернуться на главную</a>
-        {% endif %}
-{% else %}
+    <p>Подходящих тестов не найдено</p>
+    <a href="/view_results" class="button-none-result">Вернуться к просмотру результатов</a>
+    {% endif %}
+    {% else %}
     <script>
         showAlert();
     </script>
-{% endif %}
+    {% endif %}
 </div>
 
 <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
@@ -142,10 +139,6 @@
 
 
 <!--</script>-->
-
-
-
-
 
 
 <script>
@@ -184,7 +177,6 @@ function showAlert(message) {
 </script>
 
 
-
 <script>
     // Добавление тем из базы данных в выпадающий список
     var themesFromDB = {{ themes | tojson | safe }};
@@ -221,12 +213,7 @@ function showAlert(message) {
 </script>
 
 
-
-
-
-
 </body>
-
 
 
 </html>
