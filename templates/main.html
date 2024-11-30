@@ -18,16 +18,17 @@
     </div>
 </div>
 <div class="container">
+    <div class="main-container">
 
     <div class="main-text-container">
         <h3>На нашем сайте вы можете:</h3>
         <ul>
             <li>Пройти тесты по различным темам и предметам.</li>
             <li>Просмотреть результаты предыдущих тестирований.</li>
-            <li>Узнать подробную информацию о студентах.</li><br>
+            <li>Узнать подробную информацию о студентах.</li>
         </ul>
         <div class="separator-line"></div>
-        <p>Выберите интересующую вас функцию, используя кнопки ниже.</p>
+        <p>Выберите интересующую вас функцию, используя кнопки ниже:</p>
     </div>
 
     <div class="main_image_container">
@@ -38,20 +39,16 @@
             </a>
         </div>
 
-
         <div class="main_res_image">
             <a href="{{ url_for('view_results') }}" class="button">
                 <img src="/static/view_res.png" alt="Просмотреть оценки за тест">
                 <span>Просмотреть оценки</span>
             </a>
-
         </div>
+        <!--        +аналитика-->
+        <!--        +анимация для кнопок-->
     </div>
-
-</div>
-
-<div class="text">
-    {{text}}
+ </div>
 </div>
 
 

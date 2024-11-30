@@ -36,9 +36,8 @@ h2 {
 
 p {
     font-weight:500;
-    margin: 0;
-    margin-top: 30px;
-    margin-bottom: 20px;
+    margin: 20px;
+
 }
 
 
@@ -71,9 +70,7 @@ h1.title {
     margin: 20px auto;
     padding: 0;
     background: rgba(0, 0, 0, 0.5);
-    z-index: -1;
     height: auto;
-
 }
 
 .welcome_title {
@@ -116,7 +113,6 @@ h1.title {
 .taketest_container {
     width: 450px;
     margin: 20px auto;
-    background-color: #fff;
     background-color: rgba(0, 0, 0, 0.5);
     padding: 10px 20px 20px 20px;
 }
@@ -141,13 +137,145 @@ h1.title {
     font-weight: normal;
 }
 
-/* ___________________________ */
+/*main.html*/
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.main-text-container {
+    position: relative;
+    align-items:center;
+    width: 70%;
+}
+
+.main-text-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.main-text-container ul li {
+    font-size: 24px;
+    margin: 30px 0;
+    position: relative;
+    padding-left: 30px;
+}
+
+.main-text-container ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 30px;
+    height: 30px;
+    background-image: url('/static/galochka.png');
+    background-size: cover;
+}
+
+.main-text-container h3{
+    text-align: center;
+    font-size: 36px;
+    font-weight:500;
+    margin: 20x;
+    color: transparent;
+    -webkit-text-stroke: 1px #FFFFFF;
+}
+
+.main_image_container {
+    display: flex;
+    align-items:center;
+}
+
+.main_test_image, .main_res_image {
+    display: inline-block;
+    text-align: center;
+    width: 200px;
+    height: 250px;
+}
+
+.main_test_image img, .main_res_image img {
+    display: block;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.main_test_image a, .main_res_image a {
+    padding: 15px 20px;
+    background-color: #fff;
+    color: #ecb553;
+    font-size: 20px;
+    font-weight: bold;
+    width: 150px;
+    height: 170px;
+}
 
 .test-text h1 {
     text-align: center;
     font-weight: bold;
-    font-size: 24px
+    font-size: 24px;
 }
+
+/*----------------test_form.html--------------------*/
+
+
+form.custom-form {
+    width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    border: none;
+}
+
+.question {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 2px solid #fff;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #ecb553;
+
+}
+
+.question p {
+    margin: 0 auto;
+    font-weight: bold;
+    text-align: center;
+}
+
+.answer, .wrong_answer {
+    text-align: left;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+input[type="radio"] {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: white;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+input[type="radio"]:checked {
+    background-color: #ecb553;
+
+}
+
+
+
+
+/* __________________________ */
+
+
 
 
 .welcome-description {
@@ -180,8 +308,8 @@ form {
 label {
     display: block;
     margin-bottom: 10px;
-    color: #ecb553;
-    font-weight: bold;
+    /*color: #ecb553;
+    font-weight: bold;*/
 }
 
 
@@ -349,21 +477,7 @@ button button-forget:hover {
 }
 
 
-/* Стили для вывода вопросов */
-.question {
-    background-color: #fff;
 
-    border-radius: 10px;
-    padding: 15px;
-    margin: 20px 0;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.question p {
-    margin: 0;
-    font-weight: bold;
-    color:#ecb553;
-}
 
 
 
@@ -514,46 +628,7 @@ margin-top: 5px;
     left: 5%;}
 
 
-/*----------------test_form.html--------------------*/
 
-
-form.custom-form {
-    width: 900px;
-
-    margin: 0 auto;
-    background-color: #fff;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 20px;
-    border: none;
-    /* Дополнительные стили, если необходимо */
-}
-
-.question {
-    color:black;
-    align-items: center; /* Выравнивание элементов по центру вертикально */
-}
-
-
-.answer {
-    text-color:black;
-    text-align: left;
-    margin-top: 15px;
-    display: flex;
-    align-items: center; /* Выравнивание элементов по центру вертикально */
-}
-
-.wrong_answer {
-    text-align: left;
-    margin-top: 10px;
-    display: flex;
-    align-items: center; /* Выравнивание элементов по центру вертикально */
-}
-
-input[type="radio"] {
-    order: -1; /* Изменение порядка отображения радиокнопки (сдвиг влево) */
-    margin-right: 10px; /* Добавление небольшого отступа между радиокнопкой и текстом */
-    margin-bottom: 10px;
-}
 
 /*---------------------------------------------*/
 
@@ -603,85 +678,9 @@ add-student-form {
 
 
 
--------------------------------------------
 
 
-.main-text-container {
-    left:30%;
-}
 
-.main-text-container ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.main-text-container ul li {
-    font-size: 24px;
-    margin: 20px 0;
-    position: relative;
-    padding-left: 30px;
-}
-
-.main-text-container ul li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    width: 30px;
-    height: 30px;
-    background-image: url('/static/galochka.png');
-    background-size: cover;
-}
-
-.main-text-container h3{
- font-size: 36px;
-        font-weight:500;
-         /* Тонкий шрифт для "Система студента" */
-        margin: 0;
-        margin-top: 20px;
-        margin-bottom: 20px;
-         color: transparent; /* Fully transparent text color */
-
-
-        -webkit-text-stroke: 1px #FFFFFF; /* Толщина и цвет обводки */
-        text-stroke: 1px #FFFFFF; /* Толщина и цвет обводки (стандартное свойство) */
-}
-
-.main_image_container {
-    padding: 20px;
-    display: flex;
-    align-items:center;
-
-}
-
-.main_test_image, .main_res_image {
-    display: inline-block; /* Чтобы элементы выстраивались горизонтально */
-    text-align: center; /* Чтобы кнопка и изображение выравнивались по центру внутри блока */
-    width: 200px; /* Фиксированная ширина контейнера */
-    height: 250px;
-}
-
-.main_test_image img, .main_res_image img {
-    display: block;
-    margin: 0 auto;
-    padding: 0; /* Убираем padding, чтобы изображение было в пределах контейнера */
-
-}
-
-.main_test_image a, .main_res_image a {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 15px 20px;
-    background-color: #fff;
-    color: #ecb553;
-    text-decoration: none;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 20px;
-    font-weight: bold;
-    width: 130px;
-    height: 170px;
-}
 
 .result-container p {
         font-size: 36px;
@@ -774,9 +773,9 @@ select option {
 }
 
 .separator-line {
-        border-top: 3px solid #fff; /* толщина, тип и цвет линии */
-        margin: 20px 0; /* отступ сверху и снизу линии */
-    }
+    border-top: 3px solid #fff;
+    margin: 20px 0 0 0;
+}
 
 .result-block ul {
 list-style: none;

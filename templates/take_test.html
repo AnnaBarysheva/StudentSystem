@@ -19,25 +19,24 @@
 
 <div class="taketest_container">
 
-<div class="test-text">
-    <h1>Выберите тему теста:</h1>
-</div>
-
-<!-- Форма для выбора темы теста -->
-<form id="testForm" action="/take_test" method="post" onsubmit="return validateForm()">
-    <label></label>
-    {% for theme in themes %}
-    <div class="radio-container">
-        <input type="radio" id="{{ theme }}" name="test_theme" value="{{ theme }}">
-        <label for="{{ theme }}">{{ theme }}</label>
+    <div class="test-text">
+        <h1>Выберите тему теста:</h1>
     </div>
-    {% endfor %}
 
-    <br>
-<div class="sumbit_container">
-    <input type="submit" value="Пройти тест">
-</div>
-</form>
+    <form id="testForm" action="/take_test" method="post" onsubmit="return validateForm()">
+        <label></label>
+        {% for theme in themes %}
+        <div class="radio-container">
+            <input type="radio" id="{{ theme }}" name="test_theme" value="{{ theme }}">
+            <label for="{{ theme }}">{{ theme }}</label>
+        </div>
+        {% endfor %}
+
+        <br>
+        <div class="sumbit_container">
+            <input type="submit" value="Пройти тест">
+        </div>
+    </form>
 </div>
 
 <script>
