@@ -22,126 +22,79 @@
     </div>
 </div>
 
+
 <div class="result-container">
     <h3>Здесь вы можете просмотреть информацию о тестах</h3>
-
-    <div class="view-result-container">
-        {% if test_results %}
-
-        <!-- Форма для поиска -->
+    <div class="find-result-container">
         <form action="/view_results" method="post" onsubmit="return validateForm();">
             <h3>Для быстрого поиска ведите тему теста или дату его написания</h3>
             <div class="separator-line"></div>
+
             <label for="theme">Введите тему:</label>
             <select id="theme" name="theme">
                 <option value="">-- Выберите тему --</option>
-                <!-- Здесь будут динамически добавлены темы из базы данных -->
+                {% for t in themes %}
+                    <option value="{{ t }}" {% if t == theme %} selected {% endif %}>{{ t }}</option>
+                {% endfor %}
             </select>
 
             <label for="date">Введите дату:</label>
-            <div class="input-group">
+            <div class="result-input-group">
                 <input type="text" id="date" name="date" placeholder="YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}"
-                       title="Введите дату в формате YYYY-MM-DD" class="form-control" min="1900-01-01" max="9999-12-31">
-                <div class="input-group-append"></div>
+                       title="Введите дату в формате YYYY-MM-DD" min="1900-01-01" max="9999-12-31" value="{{ request.form['date'] if request.form.get('date') else '' }}">
             </div>
-
+        <div class="sumbit_container">
             <input type="submit" value="Поиск">
-
-
+            <button type="button" class = "base-button" onclick="resetFilters()">Сбросить фильтры</button>
+        </div>
         </form>
-
-
-        <a href="/save_to_word" class="button-none-result">Сохранить отчёт DOCX</a>
-
-
+        <div class="separator-line"></div>
+        <div class="sumbit_container">
+            <a href="/save_to_word" class="button-none-result">Сохранить отчёт DOCX</a>
+        </div>
     </div>
 
-    <!--    <label for="sort">Сортировать по оценкам:</label>-->
-    <!--    <select id="sort" onchange="sortResults()">-->
-    <!--        <option value="asc">По возрастанию</option>-->
-    <!--        <option value="desc">По убыванию</option>-->
-    <!--    </select>-->
 
-    <!--    <button onclick="sortResults()">Сортировать</button>-->
+    <div class="view-result-container">
+        {% if search_test_results %}
+            <h3>Результаты поиска:</h3>
+            <ul class="results-list">
+                {% for result in search_test_results %}
+                <li class="result-block">
+                        <strong>Тема:</strong> {{ result[5] }}<br>
+                        <strong>Оценка:</strong> {{ result[3] }}<br>
+                        <strong>Дата прохождения:</strong> {{ result[2] }}<br>
+                        <strong>Средняя оценка:</strong> {{ result[4] }}<br>
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h3>Все результаты:</h3>
+            <ul class="resultsList">
+                {% for result in test_results %}
+                <div class="result-block">
+                    <li>
+                        <strong>Тема:</strong> {{ result[5] }}<br>
+                        <strong>Оценка:</strong> {{ result[3] }}<br>
+                        <strong>Дата прохождения:</strong> {{ result[2] }}<br>
+                        <strong>Средняя оценка:</strong> {{ result[4] }}<br>
+                    </li>
+                </div>
+                {% endfor %}
+            </ul>
+        {% endif %}
 
-
-    <ul id="resultsList">
-        {% for result in test_results %}
-        <div class="result-block">
-            <li>
-                <strong>Тема:</strong> {{ result[5] }}<br>
-                <strong>Оценка: </strong> {{ result[3] }}<br>
-                <strong>Дата прохождения: </strong> {{ result[2] }}<br>
-                <strong>Средняя оценка:</strong> {{ result[4] }}<br>
-            </li>
-        </div>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% if theme or date %}
-
-    {% if search_test_results %}
-
-    <ul>
-        {% for result in search_test_results %}
-        <h3></h3>
-        <div class="result-block">
-            <li>
-                <strong>Тема:</strong> {{ result[5] }}<br>
-                <strong>Оценка: </strong> {{ result[3] }}<br>
-                <strong>Дата прохождения: </strong> {{ result[2] }}<br>
-                <strong>Средняя оценка:</strong> {{ result[4] }}<br>
-            </li>
-        </div>
-        {% endfor %}
-    </ul>
-
-    <!--  <a href="/search_save_to_word" class="button-none-result" onclick="saveToWord()">Сохранить отчёт DOCX</a>-->
-
-
-    {% else %}
-    <p>Подходящих тестов не найдено</p>
-    <a href="/view_results" class="button-none-result">Вернуться к просмотру результатов</a>
-    {% endif %}
-    {% else %}
-    <script>
-        showAlert();
-    </script>
-    {% endif %}
+        {% if not search_test_results and not test_results %}
+            <p>Подходящих тестов не найдено.</p>
+        {% endif %}
+    </div>
 </div>
 
-<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>-->
-<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>-->
-
-<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
-<!--<script>-->
-<!--function sortResults() {-->
-<!--    var sortOrder = document.getElementById('sort').value;-->
-<!--    var resultsList = document.getElementById('resultsList');-->
-<!--    var items = resultsList.getElementsByTagName('div');-->
-
-<!--    var sortedItems = Array.from(items).sort(function (a, b) {-->
-<!--        var valueA = parseFloat(a.querySelector('strong:nth-child(3)').innerText.split(':')[1].trim());-->
-<!--        var valueB = parseFloat(b.querySelector('strong:nth-child(3)').innerText.split(':')[1].trim());-->
-
-<!--        if (sortOrder === 'asc') {-->
-<!--            return valueA - valueB;-->
-<!--        } else {-->
-<!--            return valueB - valueA;-->
-<!--        }-->
-<!--    });-->
-
-<!--    for (var i = 0; i < sortedItems.length; i++) {-->
-<!--        resultsList.appendChild(sortedItems[i]);-->
-<!--    }-->
-<!--}-->
-
-
-<!--</script>-->
-
-
 <script>
+
+<!--    отчет по фильтру-->
+<!--    валидация-->
+
     function validateForm() {
     var themeValue = themeSelect.value;
     var dateValue = document.getElementById("date").value.trim();
@@ -174,30 +127,20 @@ function showAlert(message) {
 }
 
 
-</script>
+<!--    // Добавление тем из базы данных в выпадающий список-->
+<!--    var themesFromDB = {{ themes | tojson | safe }};-->
+<!--    var themeSelect = document.getElementById("theme");-->
 
-
-<script>
-    // Добавление тем из базы данных в выпадающий список
-    var themesFromDB = {{ themes | tojson | safe }};
-    var themeSelect = document.getElementById("theme");
-
-    for (var i = 0; i < themesFromDB.length; i++) {
-        var option = document.createElement("option");
-        option.value = themesFromDB[i];
-        option.text = themesFromDB[i];
-        themeSelect.appendChild(option);
-    }
-
-
-
-
-
+<!--    for (var i = 0; i < themesFromDB.length; i++) {-->
+<!--        var option = document.createElement("option");-->
+<!--        option.value = themesFromDB[i];-->
+<!--        option.text = themesFromDB[i];-->
+<!--        themeSelect.appendChild(option);-->
+<!--    }-->
 
    function saveToWord() {
     var themeSelect = document.getElementById("theme");
 
-    // Проверка, существует ли элемент с id "theme"
     if (themeSelect) {
         var themeValue = themeSelect.value;
         var dateValue = document.getElementById("date").value;
@@ -207,6 +150,12 @@ function showAlert(message) {
     } else {
         console.error("Элемент с id 'theme' не найден.");
     }
+}
+
+function resetFilters() {
+    document.getElementById("theme").value = "";
+    document.getElementById("date").value = "";
+     document.querySelector('form').submit();
 }
 
 
