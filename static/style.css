@@ -109,6 +109,7 @@ h1.title {
     padding: 0;
     background: rgba(0, 0, 0, 0.5);
     height: auto;
+    border-radius: 5px;
 }
 
 .welcome_title {
@@ -250,10 +251,12 @@ h1.title {
     height: 170px;
 }
 
-.test-text h1 {
+.test-text h1{
+    margin-bottom: 0;
     text-align: center;
     font-weight: bold;
     font-size: 24px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
 /*view-results.html*/
@@ -329,6 +332,14 @@ select {
     line-height: 1.5;
 }
 
+.result-container h1{
+
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
 /*test_form.html*/
 
 form.custom-form {
@@ -336,10 +347,16 @@ form.custom-form {
     margin: 0 auto;
     padding: 20px;
     border: none;
+    border-radius: 5px;
+    /*background-color: rgba(0, 0, 0, 0.5);*/
+}
+
+.result-container .custom-form {
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .question {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     border: 2px solid #fff;
     border-radius: 10px;
     padding: 15px;
@@ -380,9 +397,102 @@ input[type="radio"]:checked {
 
 }
 
+/*profile.html*/
+
+.profile-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    align-items: center;
+    height: 270px;
+    margin: 50px auto 0 auto;
+    width: 700px;
+}
+
+.profile-container h1{
+    margin: 10px;
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+}
+
+.profile-photo img{
+    background-color: #fff;
+    width: 150px;
+    height: auto;
+    border-radius: 15px;
+}
+
+.profile-info {
+   flex: 1;
+   padding-left: 20px;
+}
+
+.change-profile-container {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 50px auto 0 auto;
+    width: 700px;
+}
+
+.change-button-container{
+    display: flex;
+}
+
+.a-profile {
+    width: 175px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
 
 
+input[type="text"],
+input[type="email"],
+input[type="password"]
+{
+    width: 400px;
+    padding: 10px ;
+    margin-bottom: 10px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
 
+.username-input input[type="text"],
+.email-input input[type="email"],
+.password-input input[type="password"] {
+    width: 190px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#username-change-form, #password-change-form, #email-change-form{
+  display: none;
+  width: auto;
+}
+
+.username-input,
+.email-input,
+.password-input{
+    padding:0;
+    margin:0;
+}
+
+.error {
+    background-color: #ffcccc;
+}
 /* ______________________________________________________________________________-______________ */
 
 
@@ -420,19 +530,6 @@ label {
     margin-bottom: 10px;
     /*color: #ecb553;
     font-weight: bold;*/
-}
-
-
-
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    width: 400px;
-    padding: 10px ;
-    margin-bottom: 10px;
-    border: 1px solid #fff;
-    border-radius: 4px;
-    box-sizing: border-box;
 }
 
 
@@ -540,9 +637,7 @@ button button-forget:hover {
 
 
 
-.error {
-    background-color: #ffcccc; /* Красный фон */
-}
+
 
 
 
@@ -569,95 +664,21 @@ button button-forget:hover {
 
 
 
-/* Отцентрированный контейнер для профиля с темным фоном */
-.profile-container {
-    align-items: flex-start;
-    display: flex;
-    justify-content: space-between;
-    background: #000;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    padding: 20px;
-
-    position: relative; /* Устанавливаем позицию относительно */
-    z-index: 1; /*? Поднимаем контейнер над псевдоэлементом (его нет)*/
-    align-items: center;
-     min-height: 170px;
-     margin-top: 50px;
-    left: 27.5%;
-     width: 45%;
-     height: 100%;
-
-
-}
-
-.profile-container h1{
-    margin: 10px;
-}
-
-
-.change-profile-container {
-    display: flex;
-    background: #000;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    padding: 20px;
-    margin-top: 50px;
-    width: 45%;
-    position: absolute;
-    left: 27.5%; /* 50% ширины контейнера, делённое пополам */
-    gap: 5px; /* Расстояние между элементами */
-}
-
-.change-button-container{
-    display: flex;
-
-}
-
-.change-username-container, change-email-container, change-password-container
-{
-    flex: 1;
-
-}
-
-#username-change-form, #password-change-form, #email-change-form{
-  display: none;
-  width: auto;
-}
 
 
 
-.profile-photo {
-
-    width: 150px; /* Задайте ширину изображения по вашему желанию */
-    height: 150px; /* Сохраняйте пропорции изображения */
-
-}
-
-.profile-photo img{
-    background-color: #fff;
-    width: 170px; /* Задайте ширину изображения по вашему желанию */
-    height: auto; /* Сохраняйте пропорции изображения */
-    margin-left: 40px;
-    margin-top: 30px;
-    margin-right: 20px; /* Центрируйте изображение с отступами сверху и снизу */
-    border-radius: 15px;
-}
 
 
-.profile-info {
-    flex: 1;
-    color: #fff; /* Цвет текста */
-    width: 300px; /* Задайте ширину изображения по вашему желанию */
-    height: auto;
-    margin-top: 10px;
 
-    padding-left: 20px;
-}
 
-.profile-info h1{
-margin-top: 5px;
-}
+
+
+
+
+
+
+
+
 
 .radio-container {
             display: flex;
@@ -669,51 +690,15 @@ margin-top: 5px;
             margin-right: 5px;
         }
 
-.a-profile {
-    width: 190px; /* Замените этот размер на нужный вам */
-    height: 40px;
-     margin-right: 5px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.username-change-form{
-
-}
 
 
 
-.change-email-button{
-    flex-direction: column;
-    align-items: center; /* Выравнивание по вертикали */
-    margin-top: 20px; /* Регулируйте значение, чтобы установить нужный отступ сверху */
-    margin-bottom: 20px;
-    margin-right: 20px;
 
-}
 
-.username-done-button{
-     display: inline-block;
-        margin-top: 10px;
-        padding: 5px 20px;
-        background-color: #ecb553;
-        color: #fff;
-        text-decoration: none;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-}
 
-.password-input {
-    width: 90%;
-    left: 5%; /
-}
 
-.password-change-form{
-    width: 90%;
-    left: 5%;}
+
+
 
 
 
@@ -790,10 +775,10 @@ add-student-form {
 
 
 
-/* Пример CSS в файле style.css */
+
 
 .custom-form {
-    /* Добавьте общие стили для вашей формы, если необходимо */
+
 }
 
 .right-answer-container ul,

@@ -4,26 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/256/12145/12145256.png" />
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/256/12145/12145256.png"/>
     <title>Profile Page</title>
 </head>
 <body>
 
 <div class="header">
-     <div class="header_text">Система студентов</div>
+    <div class="header_text">Система студентов</div>
     <div class="button-container">
-    <a href="/main" class="button button-header">Вернуться на главную</a>
+        <a href="/main" class="button button-header">Вернуться на главную</a>
     </div>
 </div>
 
 
-
-<!-- Весь контент страницы будет внутри этого контейнера -->
 <div class="profile-container">
 
     <div class="profile-photo">
-<!--        <img src="https://cdn-icons-png.flaticon.com/512/8633/8633080.png" alt="Изображение студента">-->
-        <img src="https://cdn-icons-png.flaticon.com/128/4537/4537051.png" alt="Изображение студента">
+        <!--        <img src="https://cdn-icons-png.flaticon.com/512/8633/8633080.png" alt="Изображение студента">-->
+        <img src="/static/profile.png" alt="Изображение студента">
 
     </div>
 
@@ -33,52 +31,68 @@
         <p>Фамилия: {{ student_info.lastname}}</p>
         <p>Курс: {{ student_info.course}}</p>
         <p>Номер группы: {{ student_info.groupnumber}}</p>
+        <p>Имя пользователя: {{ student_info.username}}</p>
     </div>
 
 
- </div>
-
+</div>
 
 <div class="change-profile-container">
 
-
     <div class="change-button-container">
-        <!-- Изменение имени пользователя -->
         <div id="change-username-container">
-            <a class="a-profile" id="change-username-button">{{"Имя пользователя успешно изменено!" if success=='username' else "Изменить имя пользователя"}}</a>
-            <form id="username-change-form" style="display: {{ 'block' if show_username_form else 'none' }}" action="/change_username" method="POST">
-                <div class="password-input">
-                    <input type="text" id="new-username" name="new-username" placeholder="Новое имя пользователя" required class="{{ 'error' if 'username' in errors else '' }}" value="{{new_username}}">
+            <a class="a-profile" id="change-username-button">{{"Имя пользователя изменено!" if
+                success=='username' else "Изменить имя пользователя"}}</a>
+            <form id="username-change-form" style="display: {{ 'block' if show_username_form else 'none' }}"
+                  action="/change_username" method="POST">
+                <div class="username-input">
+                    <input type="text" id="new-username" name="new-username" placeholder="Новое имя пользователя"
+                           required class="{{ 'error' if 'username' in errors else '' }}" value="{{new_username}}">
                 </div>
-                <button type="submit" class="button username-done-button">Изменить</button>
+                <div class="sumbit_container">
+                    <button type="submit" class="base-button">Изменить</button>
+                </div>
             </form>
         </div>
 
-        <!-- Изменение Email -->
+
         <div id="change-email-container">
-            <a class="a-profile" id="change-email-button">{{"Email успешно изменен!" if success=='email' else "Изменить Email"}}</a>
-            <form id="email-change-form" style="display: {{ 'block' if show_email_form else 'none' }}" action="/change_email" method="POST">
-                <div class="password-input">
-                    <input type="email" id="email" name="new-email" placeholder="Новый Email" required class="{{ 'error' if 'email' in errors else '' }}" value="{{email}}">
+            <a class="a-profile" id="change-email-button">{{"Email изменен!" if success=='email' else "Изменить
+                Email"}}</a>
+            <form id="email-change-form" style="display: {{ 'block' if show_email_form else 'none' }}"
+                  action="/change_email" method="POST">
+                <div class="email-input">
+                    <input type="email" id="email" name="new-email" placeholder="Новый Email" required
+                           class="{{ 'error' if 'email' in errors else '' }}" value="{{email}}">
                 </div>
-                <button type="submit" class="button username-done-button">Изменить</button>
+                <div class="sumbit_container">
+                    <button type="submit" class="base-button">Изменить</button>
+                </div>
             </form>
         </div>
 
         <!-- Изменение пароля -->
         <div id="change-password-container">
-            <a class="a-profile" id="change-password-button">{{"Пароль успешно изменен!" if success=='password' else "Изменить пароль"}}</a>
-            <form id="password-change-form" style="display: {{ 'block' if show_password_form else 'none' }}" action="/change_password" method="POST">
+            <a class="a-profile" id="change-password-button">{{"Пароль изменен!" if success=='password' else
+                "Изменить пароль"}}</a>
+            <form id="password-change-form" style="display: {{ 'block' if show_password_form else 'none' }}"
+                  action="/change_password" method="POST">
                 <div class="password-input">
-                    <input type="password" id="old-password" name="old-password" placeholder="Старый пароль" required class="{{ 'error' if 'old_password' in errors else '' }}" value="{{old_password}}">
+                    <input type="password" id="old-password" name="old-password" placeholder="Старый пароль" required
+                           class="{{ 'error' if 'old_password' in errors else '' }}" value="{{old_password}}">
                 </div>
                 <div class="password-input">
-                    <input type="password" id="new-password" name="new-password" placeholder="Новый пароль" required class="{{ 'error' if 'new_password' in errors else '' }}" value="{{new_password}}">
+                    <input type="password" id="new-password" name="new-password" placeholder="Новый пароль" required
+                           class="{{ 'error' if 'new_password' in errors else '' }}" value="{{new_password}}">
                 </div>
                 <div class="password-input">
-                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Подтвердите пароль" required class="{{ 'error' if 'confirm_password' in errors else '' }}" value="{{confirm_password}}">
+                    <input type="password" id="confirm-password" name="confirm-password"
+                           placeholder="Подтвердите пароль" required
+                           class="{{ 'error' if 'confirm_password' in errors else '' }}" value="{{confirm_password}}">
                 </div>
-                <button type="submit" class="button username-done-button">Изменить</button>
+                <div class="sumbit_container">
+                    <button type="submit" class="base-button">Изменить</button>
+                </div>
             </form>
         </div>
     </div>
@@ -87,45 +101,20 @@
 </div>
 
 
-
-
-</div>
-
-
-
-
-    <script>
-    document.getElementById("change-password-button").addEventListener("click", function () {
-        var form = document.getElementById("password-change-form");
-        if (form.style.display === "none" || form.style.display === "") {
-            form.style.display = "block";
-        } else {
-            form.style.display = "none";
-        }
-    });
-</script>
-
-   <script>
-    document.getElementById("change-email-button").addEventListener("click", function () {
-        var form = document.getElementById("email-change-form");
-        if (form.style.display === "none" || form.style.display === "") {
-            form.style.display = "block";
-        } else {
-            form.style.display = "none";
-        }
-    });
-</script>
-
-  <script>
-   document.getElementById("change-username-button").addEventListener("click", function () {
-    var usernameForm = document.getElementById("username-change-form");
-    if (usernameForm.style.display === "none" || usernameForm.style.display === "") {
-        usernameForm.style.display = "block";
-    } else {
-        usernameForm.style.display = "none";
+<script>
+    function toggleForm(buttonId, formId) {
+        document.getElementById(buttonId).addEventListener("click", function () {
+            const form = document.getElementById(formId);
+            form.style.display = (form.style.display === "none" || form.style.display === "") ? "block" : "none";
+        });
     }
-});
-      </script>
+
+    toggleForm("change-password-button", "password-change-form");
+    toggleForm("change-email-button", "email-change-form");
+    toggleForm("change-username-button", "username-change-form");
+
+
+</script>
 
 
 

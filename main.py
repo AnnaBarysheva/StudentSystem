@@ -361,10 +361,10 @@ def change_username():
                                student_info=file1.get_data_for_profile_redirect(session.get('username')))
 
     else:
-        print("Второй")
         errors = []
         if not file1.check_username(new_username):
             errors.append('username')
+            print("errors")
             print(errors)
         return render_template('profile.html',
                                errors=errors, show_username_form=True, new_username=new_username,
@@ -386,8 +386,7 @@ def change_email():
         errors = []
         if file1.check_user_email_in_db(email):
             errors.append('email')
-            print(errors)
-            print("errors!!!")
+
         return render_template('profile.html',
                                errors=errors, show_email_form=True, email=email,
                                student_info=file1.get_data_for_profile_redirect(session.get('username')))

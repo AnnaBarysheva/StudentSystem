@@ -21,7 +21,7 @@
 
 
 <div class="result-container">
-    <h2>Результаты теста по теме: {{ theme }}</h2>
+    <h1>Результаты теста по теме: {{ theme }}</h1>
 
     <form class="custom-form">
         <div class="right-answer-container">
@@ -66,7 +66,9 @@
         <div class="result-mark-container">
             <h2>Общий вес правильных ответов: {{ total_weight }}</h2>
             <h2>Итоговая оценка: {{ mark }}</h2>
-            <a href="/view_results" class="button">Завершить и перейти к результам</a>
+            <div class="sumbit_container">
+                <a href="/view_results" class="button">Завершить и перейти к результам</a>
+            </div>
         </div>
 
 

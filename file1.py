@@ -196,7 +196,7 @@ def get_student_info(username):
         if userid:
             userid = userid[0]
 
-            cursor.execute(f"SELECT s.firstname, s.lastname, s.course, s.groupnumber "
+            cursor.execute(f"SELECT s.firstname, s.lastname, s.course, s.groupnumber, s.username "
                            f"FROM students s "
                            f"JOIN users_stud us ON s.studid = us.studid "
                            f"WHERE us.userid = {userid}")
@@ -212,13 +212,14 @@ def get_student_info(username):
                     'lastname': student_info[1],
                     'course': student_info[2],
                     'groupnumber': student_info[3],
+                    'username': student_info[4],
                 }
 
                 return student_info_dict
             else:
                 return {}
         else:
-            # Если userid не найден, возвращаем пустой словарь
+
             return {}
 
     except Exception as e:
