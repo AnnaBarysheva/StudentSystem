@@ -860,7 +860,6 @@ def search_save_to_word():
         date = request.args.get('date')
         print(f"Search Parameters: Theme={theme}, Date={date}")
 
-        # Вызываем метод search_results_in_db для выполнения поиска
         search_test_results = file1.search_results_in_db(theme, date)
 
         if search_test_results:
@@ -874,26 +873,23 @@ def search_save_to_word():
 
 
 def save_to_word(test_results, file_path='full_test_results.docx'):
-    # Создаем новый документ Word
+
     doc = Document()
 
-    # Добавляем данные из test_results в документ
     for result in test_results:
         doc.add_heading(result[5], level=2)
         doc.add_paragraph(f"Дата: {result[2]}")
         doc.add_paragraph(f"Результат: {result[3]}")
         doc.add_paragraph(f"Средняя оценка: {result[4]}")
-        # Добавьте дополнительные поля, если есть
 
-        # Разделитель между тестами
         doc.add_paragraph('---')
 
-    # Сохраняем документ в файл
     doc.save(file_path)
 
 def search_save_to_word(search_test_results, file_path='search_test_results.docx'):
-    # Создаем новый документ Word
+
     doc = Document()
+    print(f"Search Parameters2")
 
     # Добавляем данные из search_test_results в документ
     for result in search_test_results:
@@ -902,13 +898,9 @@ def search_save_to_word(search_test_results, file_path='search_test_results.docx
         doc.add_paragraph(f"Результат: {result[3]}")
         doc.add_paragraph(f"Средняя оценка: {result[4]}")
 
-        # Добавляем дополнительные поля, если они есть
-        # Пример: doc.add_paragraph(f"Дополнительное поле: {result[6]}")
-
-        # Разделитель между тестами
         doc.add_paragraph('---')
 
-    # Сохраняем документ в файл
+
     doc.save(file_path)
 
 
