@@ -493,6 +493,80 @@ input[type="password"]
 .error {
     background-color: #ffcccc;
 }
+
+/*admin*/
+
+.admin-container{
+display: flex;
+ flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 1440px;
+}
+
+.button-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    justify-items: center;
+    margin: 10px auto;
+    width: 500px;
+}
+.button-grid-container .button {
+    width: 200px;
+    padding: 10px 10px;
+    text-align: center;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.students-info{
+    align-items: center;
+}
+
+table {
+    border-collapse: collapse;
+    border: 2px solid #ddd;
+    width: 800px;
+}
+
+th, td, tr {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    color: #000;
+    background-color: #f2f2f2;
+}
+
+.button-container {
+    display: flex;
+}
+
+.add-student-form,
+.add-question-form {
+    margin: 0 auto 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-student-form h2,
+.add-question-form h2{
+    margin-bottom: 0;
+}
+
+.form-container {
+    position: relative;
+    width: 1000px;
+    height: auto;
+    display: flex;
+    margin: 0 auto;
+    gap: 20px;
+    box-sizing: border-box;
+    justify-content: space-evenly;
+}
+
 /* ______________________________________________________________________________-______________ */
 
 
@@ -659,27 +733,6 @@ button button-forget:hover {
     background-color: #0056b3;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .radio-container {
             display: flex;
             align-items: center;
@@ -690,64 +743,17 @@ button button-forget:hover {
             margin-right: 5px;
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*---------------------------------------------*/
 
-.students-info{
-    align-items: center;
-}
 
-table {
-    width: 80%;
-    margin-left: 10%;
-    border-collapse: collapse;
-    margin-top: 40px; /* Регулируйте отступ вверху по вашему вкусу */
-    border: 2px solid #ddd; /* Add this line to set the border around the table */
-}
-
-th, td, tr {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-    color: #000;
-}
-
-th, tr {
-    background-color: #f2f2f2;
-}
-
-.button-container {
-    display: flex;
-    /*flex-direction: column;*/
-}
 
 .button {
-    margin-bottom: 10px; /* или другое значение отступа между кнопками */
+    margin-bottom: 10px;
 }
 
 
 
-add-student-form {
-    width: 400px;  /*max-width: 400px;*/
 
-    margin: 0 auto;
-    background-color: #fff;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 20px;
-    border:  none;
-}
 
 
 

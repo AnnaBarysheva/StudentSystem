@@ -4,172 +4,196 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/256/12145/12145256.png" />
+    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/256/12145/12145256.png"/>
     <title>ADMIN</title>
-     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
-<div class="title-container">
-    <div class="header">
-        <h1>Система студентов</h1>
-        <div class="button-container">
-            <a href="/authentication" class="button button-profile">Вернуться к авторизации</a>
-        </div>
+
+<div class="header">
+    <div class="header_text">Система студентов</div>
+    <div class="button-container">
+        <a href="/authentication" class="button button-profile">Вернуться к авторизации</a>
     </div>
 </div>
-<h1>Администраторская панель</h1>
 
-<style>
-    .students-info {
+<div class="container admin-container">
+    <h1>Администраторская панель</h1>
+    <!-- Добавляем кнопку для экспорта -->
+    <!--<a class="button button-export" id="exportButton" onclick="toggleTable()">Экспорт данных в JSON</a>-->
+    <!--<a class="button button-import" id="importButton">Импорт данных из JSON</a>-->
 
-    }
-
-    .add-student-form {
-        display: none;
-        width: 60%;
-        margin-left: 20%;
-    }
-
-    .add-question-form {
-        display: none;
-    }
-</style>
-
-<!-- Добавляем кнопку для экспорта -->
-<!--<a class="button button-export" id="exportButton" onclick="toggleTable()">Экспорт данных в JSON</a>-->
-<!--<a class="button button-import" id="importButton">Импорт данных из JSON</a>-->
-
-<a href="javascript:void(0);" onclick="toggleStudentsTable()" class="button button-view-students">Вывести информацию о студентах</a>
-<div class="students-info">
-    <h2>Информация о студентах</h2>
-    <div id="message"></div>
-    <table id="studentsTable">
-        <tr>
-            <th>ID</th>
-            <th>Имя</th>
-            <th>Фамилия</th>
-            <th>Курс</th>
-            <th>Номер группы</th>
-            <th>Действия</th>
-        </tr>
-        {% for student in students_info %}
+    <a href="javascript:void(0);" onclick="toggleStudentsTable()" class="base-button">Вывести информацию
+        о студентах</a>
+    <div class="students-info">
+        <h2>Информация о студентах</h2>
+        <div id="message"></div>
+        <table id="studentsTable">
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Курс</th>
+                <th>Номер группы</th>
+                <th>Действия</th>
+            </tr>
+            {% for student in students_info %}
             <tr>
                 <td>{{ student['student_id'] }}</td>
                 <td>{{ student['firstname'] }}</td>
                 <td>{{ student['lastname'] }}</td>
                 <td>{{ student['course'] }}</td>
                 <td>{{ student['groupnumber'] }}</td>
-                <!-- Добавьте кнопку "Удалить" с вызовом JavaScript-функции для каждого студента -->
-                <td><button onclick="deleteStudent('{{ student['student_id'] }}')">Удалить</button></td>
+                <td>
+                    <button class="base-button" onclick="deleteStudent('{{ student['student_id'] }}')">Удалить</button>
+                </td>
             </tr>
-        {% endfor %}
-    </table>
-</div>
+            {% endfor %}
+        </table>
+    </div>
 
-<!-- admin.html -->
+    <div class="button-grid-container">
 
-<a href="{{ url_for('theme_scores_plot') }}" class="button">Посмотреть график</a>
+        <a href="{{ url_for('theme_scores_plot') }}" class="button">Посмотреть график</a>
 
+        <a href="/download_excel" class="button button-view-students">Скачать Excel-файл</a>
 
-<a href="/download_excel" class="button button-view-students">Скачать Excel</a>
+        <a href="javascript:void(0);" onclick="toggleFormStudent()" class="button button-add-student">Добавить
+            студента</a>
 
-<script>
+        <a href="javascript:void(0);" onclick="toggleFormQuestion()" class="button button-add-question">
+            {{ "Вопрос успешно добавлен!" if success == 'question' else "Добавить вопрос" }}
+        </a>
 
-function deleteStudent(studentId) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/delete_student', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    </div>
+    <script>
 
-    xhr.onload = function() {
-        if (xhr.status == 200) {
-            // Отобразим сообщение об успешном удалении
-            alert('Студент успешно удалён.');
+        function deleteStudent(studentId) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/delete_student', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-            // Перенаправим пользователя на страницу со списком студентов
-            window.location.href = '/students';
-        } else {
-            alert('Ошибка при удалении студента.');
+            xhr.onload = function() {
+                if (xhr.status == 200) {
+                    // Отобразим сообщение об успешном удалении
+                    alert('Студент успешно удалён.');
+
+                    // Перенаправим пользователя на страницу со списком студентов
+                    window.location.href = '/students';
+                } else {
+                    alert('Ошибка при удалении студента.');
+                }
+            };
+
+            xhr.send('student_id=' + studentId);
         }
-    };
-
-    xhr.send('student_id=' + studentId);
-}
 
 
 
-    function redirectToAdmin() {
-        window.location.href = '/admin';
-    }
+            function redirectToAdmin() {
+                window.location.href = '/admin';
+            }
 
-   function toggleStudentsTable() {
-        window.location.href = '/students'
-        var table = document.querySelector('.students-info');
+           function toggleStudentsTable() {
+                window.location.href = '/students'
+                var table = document.querySelector('.students-info');
+                table.style.display = table.style.display === 'block';
+        }
 
-}
+<!--          function toggleStudentsTable() {-->
+<!--    var tableContainer = document.querySelector('.students-info');-->
+
+<!--    // Если таблица не загружена, то запрашиваем ее с сервера-->
+<!--    if (!tableContainer.innerHTML.trim()) {-->
+<!--        fetch('/students')-->
+<!--            .then(response => response.text())-->
+<!--            .then(html => {-->
+<!--                // Добавляем таблицу с данными студентов-->
+<!--                tableContainer.innerHTML = html;-->
+<!--                tableContainer.style.display = 'block'; // Показываем таблицу-->
+<!--            })-->
+<!--            .catch(error => {-->
+<!--                console.error('Ошибка при загрузке таблицы:', error);-->
+<!--            });-->
+<!--    } else {-->
+<!--        // Если таблица уже загружена, переключаем видимость-->
+<!--        tableContainer.style.display = tableContainer.style.display === 'none' ? 'block' : 'none';-->
+<!--    }-->
+<!--}-->
 
 
-    function toggleFormStudent() {
-        var form = document.querySelector('.add-student-form');
-        form.style.display = form.style.display === 'none' ? 'block' : 'none';
-    }
+<!--function toggleStudentsTable() {-->
+<!--    // Находим таблицу на странице-->
+<!--    const table = document.querySelector('.students-info');-->
 
-    function toggleFormQuestion() {
-        var form = document.querySelector('.add-question-form');
-        form.style.display = form.style.display === 'none' ? 'block' : 'none';
-    }
+<!--    if (table) {-->
+<!--        // Если таблица существует, переключаем её видимость-->
+<!--        table.style.display = table.style.display === 'none' || table.style.display === '' ? 'block' : 'none';-->
+<!--    } else {-->
+<!--        // Если таблицы нет, перенаправляем пользователя на страницу для её загрузки-->
+<!--        window.location.href = '/students';-->
+<!--    }-->
+<!--}-->
 
 
 
+            function toggleFormStudent() {
+                var form = document.querySelector('.add-student-form');
+                form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            }
 
-</script>
+            function toggleFormQuestion() {
+                var form = document.querySelector('.add-question-form');
+                form.style.display = form.style.display === 'none' ? 'block' : 'none';
+            }
 
-<a href="javascript:void(0);" onclick="toggleFormStudent()" class="button button-add-student">Добавить студента</a>
 
-<div class="add-student-form">
-    <h2>Добавить студента</h2>
-    <form action="/add_student" method="post">
-        <label for="firstname">Имя:</label>
-        <input type="text" id="firstname" name="firstname" oninput="validateName(this)" required>
+    </script>
 
-        <label for="lastname">Фамилия:</label>
-        <input type="text" id="lastname" name="lastname" oninput="validateName(this)" required>
+<div class="form-container">
+    <div class="add-student-form" style="display: none;">
+        <h2>Добавить студента</h2>
+        <form action="/add_student" method="post">
+            <label for="firstname">Имя:</label>
+            <input type="text" id="firstname" name="firstname" oninput="validateName(this)" required>
 
-        <label for="course">Курс:</label>
-        <input type="number" id="course" name="course" oninput="validateCourse(this)" required>
+            <label for="lastname">Фамилия:</label>
+            <input type="text" id="lastname" name="lastname" oninput="validateName(this)" required>
 
-        <label for="groupnumber">Номер группы:</label>
-        <input type="text" id="groupnumber" name="groupnumber" oninput="validateGroup(this)" required>
+            <label for="course">Курс:</label>
+            <input type="number" id="course" name="course" oninput="validateCourse(this)" required>
 
-        <input type="submit" value="Добавить">
-    </form>
+            <label for="groupnumber">Номер группы:</label>
+            <input type="text" id="groupnumber" name="groupnumber" oninput="validateGroup(this)" required>
+
+            <input type="submit" value="Добавить">
+        </form>
+    </div>
+
+
+    <div class="add-question-form" style="display: none;">
+        <h2>Добавить вопрос</h2>
+        <form action="/add_question" method="post" onsubmit="return validateQuestForm();">
+            <label for="question_text">Текст вопроса:</label>
+            <input type="text" id="question_text" name="question_text" required>
+
+            <label for="answer">Правильный ответ:</label>
+            <input type="text" id="answer" name="answer" required>
+
+            <label for="weight">Вес вопроса:</label>
+            <input type="number" id="weight" name="weight" required>
+
+            <label for="theme">Тема:</label>
+            <input type="text" id="theme" name="theme" required>
+
+            <label for="wrong_answer">Неправильный ответ:</label>
+            <input type="text" id="wrong_answer" name="wrong_answer" required>
+
+            <input type="submit" value="Добавить">
+        </form>
+    </div>
+ </div>
 </div>
-
-<a href="javascript:void(0);" onclick="toggleFormQuestion()" class="button button-add-question">
-    {{ "Вопрос успешно добавлен!" if success == 'question' else "Добавить вопрос" }}
-</a>
-
-<div class="add-question-form" style="display: none;">
-    <h2>Добавить вопрос</h2>
-    <form action="/add_question" method="post" onsubmit="return validateQuestForm();" >
-        <label for="question_text">Текст вопроса:</label>
-        <input type="text" id="question_text" name="question_text" required>
-
-        <label for="answer">Правильный ответ:</label>
-        <input type="text" id="answer" name="answer" required>
-
-        <label for="weight">Вес вопроса:</label>
-        <input type="number" id="weight" name="weight" required>
-
-        <label for="theme">Тема:</label>
-        <input type="text" id="theme" name="theme" required>
-
-        <label for="wrong_answer">Неправильный ответ:</label>
-        <input type="text" id="wrong_answer" name="wrong_answer" required>
-
-        <input type="submit" value="Добавить">
-    </form>
-</div>
-
 
 <script>
 
@@ -215,9 +239,6 @@ function deleteStudent(studentId) {
 </script>
 
 
-
-
-
 <script>
 
 
@@ -230,34 +251,34 @@ function deleteStudent(studentId) {
         alert("Вопрос с таким текстом уже существует!");
     {% endif %}
 </script>
- <script>
-        function validateQestForm() {
-            // Получение значения текста вопроса из формы
-            var questionText = document.getElementById("question_text").value;
+<script>
+    function validateQestForm() {
+        // Получение значения текста вопроса из формы
+        var questionText = document.getElementById("question_text").value;
 
-            // AJAX-запрос для проверки вопроса на сервере
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/check_question", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
+        // AJAX-запрос для проверки вопроса на сервере
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/check_question", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
 
-                    // Проверка результата на совпадение
-                    if (response.exists) {
-                        alert("Такой вопрос уже существует!");
-                        return false; // Предотвращение отправки формы
-                    } else {
-                        // Продолжение отправки формы
-                        return true;
-                    }
+                // Проверка результата на совпадение
+                if (response.exists) {
+                    alert("Такой вопрос уже существует!");
+                    return false; // Предотвращение отправки формы
+                } else {
+                    // Продолжение отправки формы
+                    return true;
                 }
-            };
-            xhr.send("question_text=" + encodeURIComponent(questionText));
+            }
+        };
+        xhr.send("question_text=" + encodeURIComponent(questionText));
 
-            return false; // Предотвращение отправки формы до завершения AJAX-запроса
-        }
-    </script>
+        return false; // Предотвращение отправки формы до завершения AJAX-запроса
+    }
+</script>
 
 <script>
     // Добавляем обработчик события для кнопки exportButton
@@ -323,55 +344,54 @@ function deleteStudent(studentId) {
 </script>
 
 <script>
-        $(document).ready(function() {
-            $("#importButton").click(function() {
-                var fileInput = document.createElement('input');
-                fileInput.type = 'file';
-                fileInput.accept = '.json';
+    $(document).ready(function() {
+        $("#importButton").click(function() {
+            var fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = '.json';
 
-                fileInput.addEventListener('change', function() {
-                    var file = fileInput.files[0];
+            fileInput.addEventListener('change', function() {
+                var file = fileInput.files[0];
 
-                    if (file) {
-                        var reader = new FileReader();
+                if (file) {
+                    var reader = new FileReader();
 
-                        reader.onload = function(event) {
-                            var jsonData;
-                            try {
-                                jsonData = JSON.parse(event.target.result);
-                            } catch (error) {
-                                alert('Ошибка чтения JSON файла: ' + error.message);
-                                return;
+                    reader.onload = function(event) {
+                        var jsonData;
+                        try {
+                            jsonData = JSON.parse(event.target.result);
+                        } catch (error) {
+                            alert('Ошибка чтения JSON файла: ' + error.message);
+                            return;
+                        }
+
+                        var formData = new FormData();
+                        formData.append('file', file);
+                        formData.append('table_name', 'students');  // Замените на соответствующее имя таблицы
+                        formData.append('data', JSON.stringify(jsonData));  // Используем выбранные JSON-данные
+
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', '/import_data', true);
+
+                        xhr.onload = function() {
+                            if (xhr.status == 200) {
+                                alert(xhr.responseText);
+                            } else {
+                                alert('Ошибка импорта данных.');
                             }
-
-                            var formData = new FormData();
-                            formData.append('file', file);
-                            formData.append('table_name', 'students');  // Замените на соответствующее имя таблицы
-                            formData.append('data', JSON.stringify(jsonData));  // Используем выбранные JSON-данные
-
-                            var xhr = new XMLHttpRequest();
-                            xhr.open('POST', '/import_data', true);
-
-                            xhr.onload = function() {
-                                if (xhr.status == 200) {
-                                    alert(xhr.responseText);
-                                } else {
-                                    alert('Ошибка импорта данных.');
-                                }
-                            };
-
-                            xhr.send(formData);
                         };
 
-                        reader.readAsText(file);
-                    }
-                });
+                        xhr.send(formData);
+                    };
 
-                fileInput.click();
+                    reader.readAsText(file);
+                }
             });
-        });
-    </script>
 
+            fileInput.click();
+        });
+    });
+</script>
 
 
 </body>
