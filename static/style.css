@@ -567,6 +567,36 @@ th, td, tr {
     justify-content: space-evenly;
 }
 
+/*theme_scores_plot*/
+
+.graph-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.graph {
+    max-width: 600px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+.graph img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.graph-container h1{
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
 /* ______________________________________________________________________________-______________ */
 
 

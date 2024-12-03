@@ -1,3 +1,4 @@
+import matplotlib
 from flask import Flask, request, render_template, session, url_for, redirect, send_from_directory, send_file, flash
 import openpyxl
 import psycopg2
@@ -10,12 +11,15 @@ from flask_mail import Mail, Message
 from datetime import datetime
 from file1 import generate_token, get_email_by_token
 from docx import Document
-import matplotlib.pyplot as plt
-from io import BytesIO
-import base64
+
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
+import matplotlib.pyplot as plt
+matplotlib.use('Agg')
+from io import BytesIO
+import base64
+from flask import render_template
 
 
 app = Flask(__name__)
@@ -1020,15 +1024,47 @@ def theme_scores_plot():
     plt.clf()
     second_image_base64 = test_count_by_theme_plot()
 
+    pie_image_base64 = students_per_theme_plot()
+
     # Отображаем шаблон с изображением
-    return render_template('theme_scores_plot.html', image_base64=image_base64, second_image_base64=second_image_base64)
+    return render_template(
+        'theme_scores_plot.html',
+        image_base64=image_base64,
+        second_image_base64=second_image_base64,
+        pie_image_base64=pie_image_base64
+    )
 
-import matplotlib.pyplot as plt
-from io import BytesIO
-import base64
-from flask import render_template
 
 
+@app.route('/students_per_theme_plot')
+def students_per_theme_plot():
+    # Получение данных о количестве студентов по темам
+    students_per_theme = file1.get_students_count_by_theme()
+
+    # Разделение данных на темы и количество студентов
+    themes = [theme for theme, count in students_per_theme]
+    counts = [count for theme, count in students_per_theme]
+
+    # Создание круговой диаграммы
+    plt.figure(figsize=(8, 8))
+    plt.pie(counts, labels=themes, autopct='%1.1f%%', startangle=90, colors=plt.cm.Paired.colors)
+    plt.title('Процентное распределение студентов, прошедших тесты по темам')
+    plt.axis('equal')  # Делает круговой график кругом
+
+    # Сохранение графика в байтовый объект
+    image_stream = BytesIO()
+    plt.savefig(image_stream, format='png')
+    image_stream.seek(0)
+
+    # Кодируем изображение в base64
+    pie_image_base64 = base64.b64encode(image_stream.read()).decode('utf-8')
+
+    # Очищаем текущий график
+    plt.clf()
+    plt.close()
+
+    # Возвращаем base64-картинку
+    return pie_image_base64
 
 
 

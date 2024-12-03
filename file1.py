@@ -708,6 +708,29 @@ def get_test_count_by_theme():
             cursor.close()
             conn.close()
 
+def get_students_count_by_theme():
+    conn = psycopg2.connect(user="postgres", password="rootparol", host="127.0.0.1", port="5432", database="MyDB")
+    cursor = conn.cursor()
+
+    # SQL-запрос для подсчёта уникальных студентов по темам
+    query = """
+        SELECT t.theme, COUNT(DISTINCT tr.studid) AS student_count
+        FROM testresults tr
+        JOIN tests t ON tr.testid = t.testid
+        GROUP BY t.theme
+        ORDER BY student_count DESC;
+    """
+    try:
+        # Выполнение запроса
+        cursor.execute(query)
+        results = cursor.fetchall()
+    finally:
+        # Закрытие соединения
+        conn.close()
+
+    # Возвращает список кортежей [(theme, student_count), ...]
+    print(results)
+    return results
 
 
 
@@ -770,7 +793,7 @@ def get_test_results_by_studid(studid):
     cursor = conn.cursor()
 
     try:
-        # Замените 'your_table' и 'your_tests_table' на реальные имена ваших таблиц
+
         query = f"""
             SELECT 
                 testresults.testid, 
@@ -802,7 +825,7 @@ def get_test_results_by_studid(studid):
         conn.close()
 
 
-# Ваш файл с базовыми операциями в базе данных (например, file1.py)
+
 
 import psycopg2
 
