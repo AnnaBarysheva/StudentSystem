@@ -252,10 +252,10 @@ def register():
     username = request.form['username']
     email = request.form['email']
     password = request.form['password']
-    firstname = request.form['firstname']  # Новые поля
-    lastname = request.form['lastname']  # Новые поля
-    course = request.form['course']  # Новые поля
-    groupnumber = request.form['groupnumber']  # Новые поля
+    firstname = request.form['firstname']
+    lastname = request.form['lastname']
+    course = request.form['course']
+    groupnumber = request.form['groupnumber']
 
     # Проверка информации пользователя перед добавлением в базу данных
     error = file1.check_user_info_before_db(username, password)
@@ -832,6 +832,10 @@ def view_results():
             # Если запрос GET, то просто получаем результаты тестов
             test_results = file1.get_test_results_by_studid(current_stud_id)
 
+            # Если у пользователя нет результатов, передаем пустой список
+            if not test_results:
+                test_results = []
+
             # Передаем результаты тестов и список тем в шаблон
             return render_template('view_results.html', test_results=test_results, themes=themes)
     else:
@@ -968,7 +972,7 @@ def test_count_by_theme_plot():
     counts = [theme_count_dict.get(theme, 0) for theme in themes]
 
     # Создание графика
-    plt.bar(themes, counts)
+    plt.bar(themes, counts, color='#ffd422')
     plt.xlabel('Темы')
     plt.ylabel('Количество тестов')
     plt.title('Количество тестов по темам')
@@ -1003,7 +1007,7 @@ def theme_scores_plot():
     average_scores = {theme: score for theme, score in average_scores.items() if score is not None}
 
     # Создание графика
-    plt.bar(average_scores.keys(), list(average_scores.values()))
+    plt.bar(average_scores.keys(), list(average_scores.values()), color='#ffc93b')
     plt.xlabel('Темы')
     plt.ylabel('Средняя оценка')
     plt.title('Средние оценки по темам')
@@ -1046,11 +1050,22 @@ def students_per_theme_plot():
     counts = [count for theme, count in students_per_theme]
 
     # Создание круговой диаграммы
-    plt.figure(figsize=(8, 8))
-    plt.pie(counts, labels=themes, autopct='%1.1f%%', startangle=90, colors=plt.cm.Paired.colors)
+
+    colors = ['#FFE5B4', '#FFF5BA', '#FFD59A', '#FFEDC2', '#FFF8DC', '#FFFACD']
+
+    plt.figure(figsize=(10, 8))
+    plt.pie(
+        counts,
+        labels=themes,
+        autopct='%1.1f%%',
+        startangle=90,
+        colors=colors,
+        textprops={'fontsize': 10}
+    )
+
     plt.title('Процентное распределение студентов, прошедших тесты по темам')
     plt.axis('equal')  # Делает круговой график кругом
-
+    plt.tight_layout()
     # Сохранение графика в байтовый объект
     image_stream = BytesIO()
     plt.savefig(image_stream, format='png')

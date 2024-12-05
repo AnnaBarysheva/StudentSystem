@@ -693,7 +693,7 @@ button button-forget:hover {
 
 
 .title-container {
-    flex: 1; /* Занимает доступное пространство */
+    flex: 1;
 
 }
 
