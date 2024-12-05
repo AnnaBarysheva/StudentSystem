@@ -830,7 +830,7 @@ def get_test_results_by_studid(studid):
 import psycopg2
 
 
-def search_results_in_db(theme, date):
+def search_results_in_db(theme, date, studid):
     conn = psycopg2.connect(user="postgres", password="rootparol", host="127.0.0.1", port="5432", database="MyDB")
     cursor = conn.cursor()
 
@@ -848,21 +848,22 @@ def search_results_in_db(theme, date):
                 testresults 
             JOIN 
                 tests ON testresults.testid = tests.testid
+             WHERE 
+            testresults.studid = %s
         """
-
-        conditions = []
-
+        params = [studid]
+        # Добавляем дополнительные условия
         if theme:
-            conditions.append(f"tests.theme ILIKE '%{theme}%'")
-
+            query += " AND tests.theme ILIKE %s"
+            params.append(f"%{theme}%")
         if date:
-            conditions.append(f"testresults.date = '{date}'")
+            query += " AND testresults.date = %s"
+            params.append(date)
 
-        # Добавляем условия в WHERE, если они есть
-        if conditions:
-            query += " WHERE " + " AND ".join(conditions)
+        # Выполняем запрос с параметрами
+        cursor.execute(query, params)
 
-        cursor.execute(query)
+
 
         # Получаем все строки результата
         search_test_results = cursor.fetchall()

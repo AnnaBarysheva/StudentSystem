@@ -441,7 +441,7 @@ def take_test():
     username = session.get('username')
     current_stud_id = file1.get_studid_by_username(username)
 
-    session['current_stud_id'] = current_stud_id  # Добавляем в сессию
+    #session['current_stud_id'] = current_stud_id  # Добавляем в сессию
 
     if request.method == 'POST':
         selected_theme = request.form.get('test_theme')
@@ -813,6 +813,9 @@ def save_test_result(mark):
 def view_results():
     current_stud_id = session.get('current_stud_id')
 
+    if current_stud_id is None:
+        return redirect('/main')
+
     if current_stud_id is not None:
         # Получение списка тем из базы данных
         themes = file1.get_themes_from_db()
@@ -823,7 +826,7 @@ def view_results():
             date = request.form.get('date')
 
             # Вызываем метод search_results_in_db для выполнения поиска
-            search_test_results = file1.search_results_in_db(theme, date)
+            search_test_results = file1.search_results_in_db(theme, date, current_stud_id)
             print(search_test_results)
 
             # Передаем результаты поиска, тему, дату и список тем в шаблон
