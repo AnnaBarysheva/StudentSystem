@@ -25,7 +25,7 @@
 
     <form class="custom-form">
         <div class="right-answer-container">
-            <p>Правильных ответов: ({{ matching_answers_with_ids|length }})</p>
+            <h3>Правильных ответов: ({{ matching_answers_with_ids|length }})</h3>
             <ul>
                 {% for answer, (question_id, weight) in matching_answers_with_ids %}
                 {% if question_id in question_ids %}
@@ -44,7 +44,7 @@
         <div class="separator-line"></div>
 
         <div class="wrong-answer-container">
-            <p>Неправильных ответов: ({{ wrong_answer_values|length }})</p>
+            <h3>Неправильных ответов: ({{ wrong_answer_values|length }})</h3>
             <ul>
 
                 {% for question_id, question_text, correct_answer, wrong_answer in combined_data %}

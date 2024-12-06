@@ -214,7 +214,9 @@ h1.title {
     background-size: cover;
 }
 
-.main-text-container h3{
+.main-text-container h3,
+.right-answer-container h3,
+.wrong-answer-container h3  {
     text-align: center;
     font-size: 36px;
     font-weight:500;
@@ -568,6 +570,11 @@ th, td, tr {
 }
 
 /*theme_scores_plot*/
+
+.graph-flex-container{
+    display: flex;
+    justify-content: space-evenly;
+}
 
 .graph-container {
     margin-top: 20px;

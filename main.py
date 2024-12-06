@@ -570,13 +570,6 @@ def submit_answers():
         answer_values = []
         wrong_answer_values = []
 
-        for i in range(1, 6):  # 5 вопросов
-            answer_name = f'answer{i}'
-            wrong_answer_name = f'wrong_answer{i}'
-
-            process_answer(answer_name, answer_values)
-            process_answer(wrong_answer_name, wrong_answer_values)
-
         selected_theme = session.get('theme')
 
         questions_with_ids = file1.get_questions_from_db(selected_theme)
@@ -585,28 +578,46 @@ def submit_answers():
             questions, question_ids = zip(*[(q[1], q[0]) for q in questions_with_ids])
             print("questions_with_ids:")
             print(questions_with_ids)
+        else:
+            # Если вопросов нет, перенаправляем или возвращаем сообщение
+            return "Нет доступных вопросов для выбранной темы.", 400
 
-        # else:
-        #     # Handle the case where no questions are retrieved
-        #     questions = []
-        #     question_ids = []
+        for i, question_id in enumerate(question_ids, start=1):
+            answer_name = f'answer{i}'
+            wrong_answer_name = f'wrong_answer{i}'
+
+            process_answer(answer_name, answer_values)
+            process_answer(wrong_answer_name, wrong_answer_values)
 
         answers = [file1.get_answer_from_db(question_id) for question_id in question_ids]
-        # print(answers)
-        # print("wrong_answer_values")
-        # print(wrong_answer_values)
-        #
         wrong_answers = [file1.get_wrong_answer_from_db(question_id) for question_id in question_ids]
-        wrong_answers_with_ids = [(question_id, file1.get_wrong_answer_from_db(question_id)) for question_id in
-                                  question_ids]
-        # print(wrong_answers_with_ids)
+        answers_with_ids = [(question_id, answer) for question_id, answer in zip(question_ids, answers)]
+        wrong_answers_with_ids = [(question_id, wrong_answer) for question_id, wrong_answer in
+                                  zip(question_ids, wrong_answers)]
+        print("answers_with_ids:")
+        print(answers_with_ids)
+        print("wrong_answers_with_ids:")
+        print(wrong_answers_with_ids)
 
-        wrong_answers_with_ids = list(zip(question_ids, wrong_answer_values))
+        # combined_data = [
+        #     (question_id, question_text, correct_answer, wrong_answer)
+        #     for (question_id, question_text), (correct_answer, wrong_answer) in
+        #     zip(questions_with_ids, zip(answers, wrong_answers))
+        # ]
 
-        # Combine question text, correct answer, and wrong answer values with their corresponding question IDs
-        combined_data = [(question_id, question_text, file1.get_answer_from_db(question_id), wrong_answer)
-                         for (question_id, question_text), wrong_answer in zip(questions_with_ids, wrong_answer_values)]
+        matching_answers_with_ids = process_matching_answers()
+        correct_answer_ids = [question_id for answer, (question_id, _) in matching_answers_with_ids]
+        print("correct_answer_ids:")
+        print(correct_answer_ids)
+        # Фильтрация combined_data, исключая вопросы с правильными ответами
+        combined_data = [
+            (question_id, question_text, correct_answer, wrong_answer)
+            for (question_id, question_text), (correct_answer, wrong_answer) in
+            zip(questions_with_ids, zip(answers, wrong_answers))
+            if question_id not in correct_answer_ids  # Исключаем вопросы с правильными ответами
+        ]
 
+        # Печать результатов для отладки
         for question_id, question_text, correct_answer, wrong_answer in combined_data:
             print(f"ID вопроса: {question_id}")
             print(f"Текст вопроса: {question_text}")
@@ -662,15 +673,20 @@ def process_matching_answers():
     matching_answers_with_ids = []
     total_weight = 0
 
-    for i in range(1, 6):  # 5 вопросов
+    # Предполагаем, что вопрос всегда идет с номером от 1 до 10, как в вашем цикле.
+    for i in range(1, 10):
         answer_name = f'answer{i}'
         answer_value = request.form.get(answer_name)
 
         if answer_value is not None:
+            # Получаем ID вопроса и вес
             question_info = file1.get_question_id_by_answer(answer_value)
 
-            matching_answers_with_ids.append((answer_value, question_info))
-            total_weight += question_info[1]
+            # Теперь предполагаем, что question_info возвращает кортеж (question_id, weight)
+            if question_info:  # Проверяем, что информация корректна
+                question_id, weight = question_info
+                matching_answers_with_ids.append((answer_value, (question_id, weight)))
+                total_weight += weight
 
     return matching_answers_with_ids
 
@@ -870,7 +886,7 @@ def search_save_to_word():
         date = request.args.get('date')
         print(f"Search Parameters: Theme={theme}, Date={date}")
 
-        search_test_results = file1.search_results_in_db(theme, date)
+        search_test_results = file1.search_results_in_db(theme, date, current_stud_id)
 
         if search_test_results:
             file_path = f"search_test_results_{current_stud_id}.docx"
